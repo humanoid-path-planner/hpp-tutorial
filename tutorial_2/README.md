@@ -43,7 +43,7 @@ v = Viewer(robot)
 v.initViewer(open=False, loadModel=True)
 v(q)
 ```
-Then in midor address bar, type `http://localhost:8080`. You should see the panda robot.
+Then in midori address bar, type `http://localhost:8080`. You should see the panda robot.
 
 You can have a quick look at the script to see the instructions used to define the robot.
 
