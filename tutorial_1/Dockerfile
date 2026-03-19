@@ -19,9 +19,7 @@ RUN apt-get update -y && DEBIAN_FRONTEND=noninteractive apt-get install -qqy \
     robotpkg-hpp-manipulation-urdf+doc robotpkg-qt5-qgv \
     libboost-filesystem1.83-dev libboost-python1.83.0 \
     libboost-thread1.83-dev python3-numpy liburdfdom-dev wget python3.12-venv \
-    python-is-python3 doxygen
-
-RUN apt-get update -y && DEBIAN_FRONTEND=noninteractive apt-get install -qqy \
+    python-is-python3 doxygen \
     libasound2-dev libatk1.0-0 libc6 libcairo-gobject2 libcairo2 libdbus-1-3 libdbus-glib-1-2 \
     libffi8 libfontconfig1 libfreetype6 libglib2.0-0 libgtk-3-0 libnspr4 libnss3 libpango-1.0-0 \
     libstdc++6 libvpx9 apulse \
