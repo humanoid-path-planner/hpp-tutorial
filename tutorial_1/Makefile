@@ -59,7 +59,7 @@ hpp-plot_extra_flags=  -DINSTALL_DOCUMENTATION=OFF
 
 # }}}
 ##################################
-# {{{ Packages for gepetto-gui
+# {{{ Packages for hpp-plot
 
 qgv_branch=devel
 qgv_repository=${HPP_REPO}
@@ -67,9 +67,21 @@ qgv_extra_flags=-DBINDINGS_QT5=ON -DBINDINGS_QT4=OFF
 
 # }}}
 ##################################
+# {{{ Packages for toppra
+
+toppra_repository=https://github.com/hungpham2511
+toppra_branch=develop
+toppra_extra_flags= -DBUILD_TESTS=OFF -DPYTHON_BINDINGS=OFF
+
+hpp-toppra_repository=${HPP_REPO}
+hpp-toppra_branch=main
+hpp-toppra_extra_flags=
+
+# }}}
+##################################
 # {{{ High-level targets
 
-all: hpp-plot.install hpp_tutorial.install
+all: hpp-plot.install hpp_tutorial.install hpp-toppra.install
 	${MAKE} hpp-doc.install
 
 # }}}
@@ -96,6 +108,8 @@ qgv.configure.dep: qgv.checkout jrl-cmakemodules.install
 hpp_tutorial.configure.dep: hpp_tutorial.checkout hpp-gepetto-viewer.install \
 	hpp-python.install
 hpp-gepetto-viewer.configure.dep: hpp-gepetto-viewer.checkout python-venv hpp-python.install
+toppra.configure.dep: toppra.checkout
+hpp-toppra.configure.dep: hpp-toppra.checkout jrl-cmakemodules.install toppra.install
 
 # }}}
 ##################################
@@ -203,3 +217,20 @@ update:
 		echo -n "$(@:.log=): "; \
 		cat .git/refs/heads/${$(@:.log=)_branch}; \
 	fi
+
+toppra.configure_nodep:toppra.checkout
+	mkdir -p ${SRC_DIR}/$(@:.configure_nodep=)/cpp/${BUILD_FOLDER}; \
+	cd ${SRC_DIR}/$(@:.configure_nodep=)/cpp/${BUILD_FOLDER}; \
+	cmake -DCMAKE_INSTALL_PREFIX=${INSTALL_HPP_DIR} -DCMAKE_INSTALL_LIBDIR=lib -DCMAKE_BU\
+ILD_TYPE=${BUILD_TYPE} \
+                        -DENFORCE_MINIMAL_CXX_STANDARD=ON \
+                        -DINSTALL_DOCUMENTATION=${INSTALL_DOCUMENTATION} \
+                        -DCMAKE_CXX_FLAGS_RELWITHDEBINFO="-g -O3 -DNDEBUG" \
+                        ${CLANG_FLAGS} \
+                        ${$(@:.configure_nodep=)_extra_flags} ..
+
+toppra.install:toppra.configure
+	${MAKE} -C ${SRC_DIR}/$(@:.install=)/cpp/${BUILD_FOLDER} install
+
+toppra.install_nodep:toppra.configure_nodep
+	${MAKE} -C ${SRC_DIR}/$(@:.install_nodep=)/cpp/${BUILD_FOLDER} install
