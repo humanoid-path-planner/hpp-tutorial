@@ -2,50 +2,33 @@
 // Copyright (c) 2014 CNRS
 // Authors: Florent Lamiraux
 //
-//
-// This file is part of hpp_tutorial
-// hpp_tutorial is free software: you can redistribute it
-// and/or modify it under the terms of the GNU Lesser General Public
-// License as published by the Free Software Foundation, either version
-// 3 of the License, or (at your option) any later version.
-//
-// hpp_tutorial is distributed in the hope that it will be
-// useful, but WITHOUT ANY WARRANTY; without even the implied warranty
-// of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-// General Lesser Public License for more details.  You should have
-// received a copy of the GNU Lesser General Public License along with
-// hpp_tutorial  If not, see
-// <http://www.gnu.org/licenses/>.
+// BSD 2-Clause License
+
+// Copyright (c) 2014-2024, CNRS
+
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions are met:
+
+// 1. Redistributions of source code must retain the above copyright notice, this
+//    list of conditions and the following disclaimer.
+
+// 2. Redistributions in binary form must reproduce the above copyright notice,
+//    this list of conditions and the following disclaimer in the documentation
+//    and/or other materials provided with the distribution.
+
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+// DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+// FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+// DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+// SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+// CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+// OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /// \mainpage Tutorials
 /// \anchor hpp_tutorial_documentation
 ///
-/// \par Introduction
-///
-/// These tutorials explain how to define and solve a path planning
-/// problem, how to display the resulting paths in gepetto-viewer, and
-/// how to implement a new path planning algorithm.
-///
-/// \par Setting up your environment
-///
-/// Before starting, make sure that
-/// \li \c bash is you default shell script language,
-/// \li the line \code source $DEVEL_DIR/config.sh \endcode is in your .bashrc
-/// file, where \c DEVEL_DIR is the environment variable defined in the
-/// <a href="https://github.com/humanoid-path-planner/hpp-doc/tree/ros-hydro">
-/// installation instructions</a>.
-///
-/// \par Tutorials
-///
-/// \li \link hpp_tutorial_tutorial_1 Tutorial 1 (python)\endlink: how to
-///     define and solve a path planning problem using CORBA.
-/// \li \link hpp_tutorial_tutorial_1_cpp Tutorial 1 (C++)\endlink how to
-///     define and solve the same path planning problem without middleware.
-/// \li \link hpp_tutorial_tutorial_2 Tutorial 2 - plugin\endlink : how to
-/// implement
-///     a new path planning algorithm in C++.
-/// \li \link hpp_tutorial_tutorial_3 Tutorial 3 - manipulation \endlink : how
-/// to define and solve a manipulation planning problem. \li \link
-/// hpp_tutorial_tutorial_4 Tutorial 4 - inverse kinematics \endlink: how to
-/// plan
-///     end-effector trajectoties
+/// The tutorials are accessible on
+/// <a href="https://github.com/humanoid-path-planner/hpp_tutorial/tree/devel">github</a>.
