@@ -40,3 +40,5 @@ RUN mkdir /home/user/devel
 ENV DEVEL_HPP_DIR=/home/user/devel
 
 RUN echo "source $DEVEL_HPP_DIR/config.sh" >> /home/user/.bashrc
+RUN python3 -m venv /home/user/install-pip
+RUN /home/user/install-pip/bin/pip install "numpy==1.26.4" trimesh pycollada viser
