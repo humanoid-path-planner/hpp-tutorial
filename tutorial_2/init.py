@@ -1,6 +1,5 @@
 from pinocchio import SE3, neutral
 from pyhpp.manipulation import Device, urdf
-from pyhpp_viser import Viewer
 
 robot = Device("tuto")
 
