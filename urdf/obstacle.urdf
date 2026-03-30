@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<robot name="obstacle">
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="0.02 0.2 0.2"/>
+      </geometry>
+      <material name="Orange">
+        <color rgba="1 0.4 0.3 0.6"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.02 0.2 0.2"/>
+      </geometry>
+    </collision>
+  </link>
+</robot>

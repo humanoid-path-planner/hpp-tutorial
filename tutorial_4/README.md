@@ -69,3 +69,5 @@ pv = transition.pathValidation()
 res, p3, report = pv.validate(p2, False)
 ```
 The path is then tested for collision after setting the relevant security margins.
+
+[Tutorial 5](../tutorial_5/README.md) shows how to optimize and time-parameterize paths.
