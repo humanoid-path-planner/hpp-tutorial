@@ -1,5 +1,6 @@
 import numpy as np
 from pinocchio import SE3, neutral
+from pyhpp.core import RandomShortcut, SimpleTimeParameterization
 from pyhpp.manipulation import (
     Device,
     Graph,
@@ -58,7 +59,7 @@ robot.setJointBounds(
 )
 
 # Load an obstacle between robot and plate to force a non-straight path
-obstacle_pose = SE3(rotation=np.identity(3), translation=np.array([0.5, -0.25, 1.2]))
+obstacle_pose = SE3(rotation=np.identity(3), translation=np.array([0.5, -0.2, 1.2]))
 urdf.loadModel(
     robot, 0, "obstacle", "anchor",
     "package://hpp_tutorial/urdf/obstacle.urdf", "", obstacle_pose,
@@ -133,3 +134,16 @@ if p1 is None:
     print("Failed to plan p1 after 50 attempts. Try running the script again.")
 else:
     print(f"Path p1 planned (q_init -> qpg), length: {p1.length():.3f}")
+
+    # Optimize the geometric path before time parameterization
+    shortcut = RandomShortcut(problem)
+    p1_opt = shortcut.optimize(p1)
+    print(f"Optimized path length: {p1_opt.length():.3f} (was {p1.length():.3f})")
+
+    # Time parameterization with low acceleration to visualize the difference
+    stp = SimpleTimeParameterization(problem)
+    stp.order = 2
+    stp.safety = 0.95
+    stp.maxAcceleration = 0.5
+    p1_stp = stp.optimize(p1_opt)
+    print(f"STP duration: {p1_stp.length():.3f} s (maxAcceleration=0.5)")
