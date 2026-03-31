@@ -180,6 +180,7 @@ You can visualize `qpg` and `qg` in the graphical interface.
 
 We now need to plan a motion between `q_init` and `qpg` and between `qpg` and `qg`, keeping the relevant constraints satisfied. Here the only relevant constraint is that the part should not move. To do so, we will use the `TransitionPlanner` class. This class plans motions along a transition, keeping the constraints of the transition satisfied. The right hand side of the parameterizable constraints of the transition is initialized with the initial configuration. The code below shows how to use this class.
 ```
+from pyhpp.manipulation import TransitionPlanner
 planner = TransitionPlanner(problem)
 planner.maxIterations(1000)
 for i in range(10):
