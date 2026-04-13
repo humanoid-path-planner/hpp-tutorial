@@ -12,12 +12,10 @@ RUN echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/robotpkg.asc] http://robot
 
 RUN apt-get update -y && DEBIAN_FRONTEND=noninteractive apt-get install -qqy \
     libgraphviz-dev libqt5svg5-dev pyqt5-dev qtbase5-private-dev \
-    robotpkg-py312-pinocchio robotpkg-py312-omniorbpy \
-    robotpkg-py312-hpp-manipulation-corba robotpkg-hpp-statistics+doc robotpkg-hpp-util+doc \
-    robotpkg-hpp-pinocchio+doc \
-    robotpkg-hpp-constraints+doc robotpkg-hpp-core+doc robotpkg-hpp-manipulation+doc \
-    robotpkg-hpp-manipulation-urdf+doc robotpkg-qt5-qgv \
-    libboost-filesystem1.83-dev libboost-python1.83.0 \
+    robotpkg-py312-pinocchio \
+    robotpkg-hpp-util+doc robotpkg-hpp-statistics+doc \
+    robotpkg-hpp-pinocchio+doc robotpkg-hpp-constraints+doc \
+    libboost-filesystem1.83-dev libboost-python1.83-dev \
     libboost-thread1.83-dev python3-numpy liburdfdom-dev wget python3.12-venv \
     python-is-python3 doxygen \
     libasound2-dev libatk1.0-0 libc6 libcairo-gobject2 libcairo2 libdbus-1-3 libdbus-glib-1-2 \

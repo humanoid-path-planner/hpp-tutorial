@@ -46,6 +46,10 @@ hpp-manipulation_branch=devel
 hpp-manipulation_repository=${HPP_REPO}
 hpp-manipulation_extra_flags=${HPP_EXTRA_FLAGS}
 
+hpp-manipulation-urdf_branch=devel
+hpp-manipulation-urdf_repository=${HPP_REPO}
+hpp-manipulation-urdf_extra_flags=${HPP_EXTRA_FLAGS}
+
 hpp-python_branch=devel
 hpp-python_repository=${HPP_REPO}
 hpp-python_extra_flags=${HPP_EXTRA_FLAGS} ${PYTHON_FLAGS}
@@ -114,10 +118,11 @@ python-venv:
 
 jrl-cmakemodules.configure.dep: jrl-cmakemodules.checkout
 hpp-doc.configure.dep: hpp-doc.checkout
-hpp-plot.configure.dep: hpp-plot.checkout jrl-cmakemodules.install qgv.install
 hpp-core.configure.dep: hpp-core.checkout jrl-cmakemodules.install
-hpp-manipulation.configure.dep: hpp-manipulation.checkout jrl-cmakemodules.install hpp-core.install
-hpp-python.configure.dep: hpp-python.checkout jrl-cmakemodules.install hpp-core.install hpp-manipulation.install
+hpp-manipulation.configure.dep: hpp-manipulation.checkout hpp-core.install
+hpp-manipulation-urdf.configure.dep: hpp-manipulation-urdf.checkout hpp-manipulation.install
+hpp-python.configure.dep: hpp-python.checkout jrl-cmakemodules.install hpp-manipulation-urdf.install
+hpp-plot.configure.dep: hpp-plot.checkout jrl-cmakemodules.install qgv.install
 qgv.configure.dep: qgv.checkout jrl-cmakemodules.install
 hpp_tutorial.configure.dep: hpp_tutorial.checkout hpp-gepetto-viewer.install \
 	hpp-python.install
