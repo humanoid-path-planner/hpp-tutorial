@@ -99,7 +99,6 @@ graph.setSecurityMarginForTransition(
     transition, "staubli/joint_6", "plate/root_joint", float("-inf")
 )
 graph.initialize()
-graph.initialize()
 
 shooter = problem.configurationShooter()
 
