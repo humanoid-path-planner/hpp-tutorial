@@ -99,7 +99,7 @@ python-venv:
 	if [ -f ${INSTALL_HPP_DIR}/pyvenv.cfg ]; then \
 		echo "python virtual environment already created in $INSTALL_HPP_DIR"; \
 	else \
-		python -m venv ${INSTALL_HPP_DIR}; \
+		python -m venv --system-site-packages ${INSTALL_HPP_DIR}; \
 		${INSTALL_HPP_DIR}/bin/pip install --prefix=${INSTALL_HPP_DIR} \
 			"numpy==1.26.4" trimesh pycollada viser; \
 	fi
