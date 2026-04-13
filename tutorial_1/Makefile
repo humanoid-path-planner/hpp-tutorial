@@ -75,14 +75,6 @@ hpp-exec_extra_flags=${PYTHON_FLAGS}
 
 # }}}
 ##################################
-# {{{ Packages for hpp-plot
-
-qgv_branch=devel
-qgv_repository=${HPP_REPO}
-qgv_extra_flags=-DBINDINGS_QT5=ON -DBINDINGS_QT4=OFF
-
-# }}}
-##################################
 # {{{ Packages for toppra
 
 toppra_repository=https://github.com/hungpham2511
@@ -122,8 +114,7 @@ hpp-core.configure.dep: hpp-core.checkout jrl-cmakemodules.install
 hpp-manipulation.configure.dep: hpp-manipulation.checkout hpp-core.install
 hpp-manipulation-urdf.configure.dep: hpp-manipulation-urdf.checkout hpp-manipulation.install
 hpp-python.configure.dep: hpp-python.checkout jrl-cmakemodules.install hpp-manipulation-urdf.install
-hpp-plot.configure.dep: hpp-plot.checkout jrl-cmakemodules.install qgv.install
-qgv.configure.dep: qgv.checkout jrl-cmakemodules.install
+hpp-plot.configure.dep: hpp-plot.checkout jrl-cmakemodules.install
 hpp_tutorial.configure.dep: hpp_tutorial.checkout hpp-gepetto-viewer.install \
 	hpp-python.install
 hpp-gepetto-viewer.configure.dep: hpp-gepetto-viewer.checkout python-venv hpp-python.install
