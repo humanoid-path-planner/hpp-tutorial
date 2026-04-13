@@ -11,7 +11,7 @@ RUN echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/robotpkg.asc] http://robot
 RUN echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/robotpkg.asc] http://robotpkg.openrobots.org/wip/packages/debian/pub noble robotpkg" >> /etc/apt/sources.list.d/robotpkg.list
 
 RUN apt-get update -y && DEBIAN_FRONTEND=noninteractive apt-get install -qqy \
-    libgraphviz-dev libqt5svg5-dev pyqt5-dev qtbase5-private-dev \
+    libgraphviz-dev libqt5svg5-dev pyqt5-dev qtbase5-private-dev qttools5-dev \
     robotpkg-py312-pinocchio robotpkg-qt5-qgv \
     robotpkg-hpp-util+doc robotpkg-hpp-statistics+doc \
     robotpkg-hpp-pinocchio+doc robotpkg-hpp-constraints+doc \

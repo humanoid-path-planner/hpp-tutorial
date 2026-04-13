@@ -114,7 +114,7 @@ hpp-core.configure.dep: hpp-core.checkout jrl-cmakemodules.install
 hpp-manipulation.configure.dep: hpp-manipulation.checkout hpp-core.install
 hpp-manipulation-urdf.configure.dep: hpp-manipulation-urdf.checkout hpp-manipulation.install
 hpp-python.configure.dep: hpp-python.checkout jrl-cmakemodules.install hpp-manipulation-urdf.install
-hpp-plot.configure.dep: hpp-plot.checkout jrl-cmakemodules.install
+hpp-plot.configure.dep: hpp-plot.checkout jrl-cmakemodules.install hpp-manipulation.install
 hpp_tutorial.configure.dep: hpp_tutorial.checkout hpp-gepetto-viewer.install \
 	hpp-python.install
 hpp-gepetto-viewer.configure.dep: hpp-gepetto-viewer.checkout python-venv hpp-python.install
