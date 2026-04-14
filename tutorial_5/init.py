@@ -61,8 +61,13 @@ robot.setJointBounds(
 # Load an obstacle between robot and plate to force a non-straight path
 obstacle_pose = SE3(rotation=np.identity(3), translation=np.array([0.5, -0.2, 1.2]))
 urdf.loadModel(
-    robot, 0, "obstacle", "anchor",
-    "package://hpp_tutorial/urdf/obstacle.urdf", "", obstacle_pose,
+    robot,
+    0,
+    "obstacle",
+    "anchor",
+    "package://hpp_tutorial/urdf/obstacle.urdf",
+    "",
+    obstacle_pose,
 )
 
 # Position the plate in the environment

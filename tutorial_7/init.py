@@ -25,23 +25,37 @@ urdf.loadModel(robot, 0, "fr3", "anchor", urdf_filename, srdf_filename, SE3.Iden
 # Load ground (fixed obstacle with contact surface)
 urdf_filename = "package://hpp_tutorial/urdf/ground.urdf"
 srdf_filename = "package://hpp_tutorial/srdf/ground.srdf"
-urdf.loadModel(robot, 0, "ground", "anchor", urdf_filename, srdf_filename, SE3.Identity())
+urdf.loadModel(
+    robot, 0, "ground", "anchor", urdf_filename, srdf_filename, SE3.Identity()
+)
 
 # Load box (freeflyer object with handle + contact surface)
 urdf_filename = "package://hpp_tutorial/urdf/box.urdf"
 srdf_filename = "package://hpp_tutorial/srdf/box.srdf"
-urdf.loadModel(robot, 0, "box", "freeflyer", urdf_filename, srdf_filename, SE3.Identity())
+urdf.loadModel(
+    robot, 0, "box", "freeflyer", urdf_filename, srdf_filename, SE3.Identity()
+)
 
 # Set bounds for the box translation (needed for random sampling)
-robot.setJointBounds("box/root_joint", [
-    -1.5, 1.5,   # x
-    -1.5, 1.5,   # y
-    -0.2, 1.5,   # z
-    -float("Inf"), float("Inf"),  # quaternion
-    -float("Inf"), float("Inf"),
-    -float("Inf"), float("Inf"),
-    -float("Inf"), float("Inf"),
-])
+robot.setJointBounds(
+    "box/root_joint",
+    [
+        -1.5,
+        1.5,  # x
+        -1.5,
+        1.5,  # y
+        -0.2,
+        1.5,  # z
+        -float("Inf"),
+        float("Inf"),  # quaternion
+        -float("Inf"),
+        float("Inf"),
+        -float("Inf"),
+        float("Inf"),
+        -float("Inf"),
+        float("Inf"),
+    ],
+)
 
 # Configuration vector:
 #   indices 0-6:   fr3 arm joints (7 DOF)
@@ -66,25 +80,55 @@ cts = ComparisonTypes()
 cts[:] = [ComparisonType.EqualToZero]
 locked_fingers = []
 for i in range(2):
-    lj = LockedJoint(robot, f'fr3/fr3_finger_joint{i+1}', np.array([0.035]), cts)
+    lj = LockedJoint(robot, f"fr3/fr3_finger_joint{i + 1}", np.array([0.035]), cts)
     locked_fingers.append(lj)
 
 graph.addNumericalConstraintsToGraph(locked_fingers)
 graph.initialize()
 
 # Initial config: ready pose, open gripper, box in front at (0.4, -0.2)
-q_init = np.array([
-    0, -0.785, 0, -2.356, 0, 1.571, 0.785,   # arm (ready)
-    0.035, 0.035,                                # fingers (open)
-    0.4, -0.2, 0.0251, 0, 0, 0, 1,             # box pose (x,y,z, qx,qy,qz,qw)
-])
+q_init = np.array(
+    [
+        0,
+        -0.785,
+        0,
+        -2.356,
+        0,
+        1.571,
+        0.785,  # arm (ready)
+        0.035,
+        0.035,  # fingers (open)
+        0.4,
+        -0.2,
+        0.0251,
+        0,
+        0,
+        0,
+        1,  # box pose (x,y,z, qx,qy,qz,qw)
+    ]
+)
 
 # Goal config: same arm pose, box moved to (0.4, 0.2)
-q_goal = np.array([
-    0, -0.785, 0, -2.356, 0, 1.571, 0.785,
-    0.035, 0.035,
-    0.4, 0.2, 0.0251, 0, 0, 0, 1,
-])
+q_goal = np.array(
+    [
+        0,
+        -0.785,
+        0,
+        -2.356,
+        0,
+        1.571,
+        0.785,
+        0.035,
+        0.035,
+        0.4,
+        0.2,
+        0.0251,
+        0,
+        0,
+        0,
+        1,
+    ]
+)
 
 # Solve the manipulation problem
 problem.initConfig(q_init)
