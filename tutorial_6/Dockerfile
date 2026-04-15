@@ -1,7 +1,7 @@
 # Extends the base tutorial image with ROS2 control + Gazebo + Franka packages
 # for executing planned trajectories on a simulated Panda/FR3 robot.
 #
-# Build:  docker build -t hpp-tutorial-ros2 .
+# Build:  docker build --build-arg DOCKER_USER=`id -u` --build-arg DOCKER_GROUP=`id -g` -t hpp-tutorial-ros2 .
 # Run:    See tutorial_6/README.md for docker run instructions.
 
 FROM hpp:tuto

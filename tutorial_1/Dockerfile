@@ -25,8 +25,14 @@ COPY midori_11.6-1_amd64.deb .
 RUN dpkg -i midori_11.6-1_amd64.deb
 RUN rm -f midori_11.6-1_amd64.deb
 
-# Add user
-RUN adduser user
+# Add user matching the host UID/GID so bind mounts work read/write.
+# ros:jazzy (Ubuntu 24.04) ships with a default `ubuntu` user at UID 1000
+# that occupies the slot we need, so remove it first.
+ARG DOCKER_USER=1000
+ARG DOCKER_GROUP=1000
+RUN touch /var/mail/ubuntu && chown ubuntu /var/mail/ubuntu && userdel -r ubuntu
+RUN addgroup --gid $DOCKER_GROUP user
+RUN adduser --uid $DOCKER_USER --gid $DOCKER_GROUP --disabled-password --gecos "" user
 
 USER user
 RUN mkdir /home/user/devel

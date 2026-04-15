@@ -26,7 +26,7 @@ wget https://github.com/goastian/midori-desktop/releases/download/v11.6/midori_1
   4. Build the docker image
 
 ```
-docker build -t hpp:tuto -f Dockerfile .
+docker build --build-arg DOCKER_USER=`id -u` --build-arg DOCKER_GROUP=`id -g` -t hpp:tuto -f Dockerfile .
 ```
 
   5. Create directory `src`
