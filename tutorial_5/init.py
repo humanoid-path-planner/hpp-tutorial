@@ -152,7 +152,7 @@ else:
     stp.maxAcceleration = 0.5
     p1_stp = stp.optimize(p1_opt)
     print(f"STP duration: {p1_stp.length():.3f} s (maxAcceleration=0.5)")
-    
+
     In a separate file `plot.py`, we could add the following function that plots the trajectory, velocity and accelerations. This implies installing `matplotlib` in the docker image
 
 import matplotlib.pyplot as plt
@@ -183,4 +183,3 @@ def plotTraj(p, rmin, rmax, dt = 0.01, order = 2):
         if order >= 2:
             ax2.plot(times, accelerations[:,i], label=f"q{i}")
     fig.show()
-
