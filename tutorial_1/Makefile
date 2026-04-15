@@ -77,13 +77,6 @@ hpp-exec_extra_flags=${PYTHON_FLAGS}
 ##################################
 # {{{ Packages for toppra
 
-toppra_repository=https://github.com/hungpham2511
-toppra_branch=develop
-toppra_extra_flags= -DBUILD_TESTS=OFF -DPYTHON_BINDINGS=OFF
-
-hpp-toppra_repository=${HPP_REPO}
-hpp-toppra_branch=main
-hpp-toppra_extra_flags=
 toppra_repository=${HPP_REPO}
 toppra_branch=main
 toppra_extra_flags= -DBUILD_TESTS=OFF -DPYTHON_BINDINGS=OFF
