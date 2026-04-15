@@ -1,9 +1,9 @@
 import numpy as np
 from pinocchio import SE3
-from pyhpp.manipulation import Device, Graph, Problem, ManipulationPlanner, urdf
-from pyhpp.manipulation.constraint_graph_factory import ConstraintGraphFactory
 from pyhpp.constraints import ComparisonType, ComparisonTypes, LockedJoint
 from pyhpp.core import RandomShortcut, SimpleTimeParameterization
+from pyhpp.manipulation import Device, Graph, ManipulationPlanner, Problem, urdf
+from pyhpp.manipulation.constraint_graph_factory import ConstraintGraphFactory
 from pyhpp_viser import Viewer
 
 

@@ -1,7 +1,7 @@
 import numpy as np
 from pinocchio import SE3
+from pyhpp.core import BiRRTPlanner, Problem, RandomShortcut, SimpleTimeParameterization
 from pyhpp.pinocchio import Device, urdf
-from pyhpp.core import Problem, BiRRTPlanner, RandomShortcut, SimpleTimeParameterization
 from pyhpp_viser import Viewer
 
 
