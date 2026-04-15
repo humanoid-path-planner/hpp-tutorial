@@ -36,7 +36,8 @@ print(f"Optimized path length: {p1_opt.length():.3f} (was {p1.length():.3f})")
 `RandomShortcut` repeatedly picks two random points along the path and tries to connect them with a
 straight segment. If the shortcut is collision-free and shorter, it replaces the original sub-path.
 
-## SimpleTimeParameterization
+## Time parameterization
+### SimpleTimeParameterization
 
 `SimpleTimeParameterization` computes a polynomial time parameterization that maps real time `t` to
 the path parameter `s`, while respecting joint velocity and acceleration limits.
