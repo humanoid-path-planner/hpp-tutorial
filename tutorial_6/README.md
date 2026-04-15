@@ -16,8 +16,8 @@ The base tutorial docker image does not include ROS2 control packages. Build the
 extended image from the tutorial 6 directory **on the host machine** (not inside
 the container):
 
+In the host machine, cd into tutorial_6 directory. In a bash terminal, run
 ```
-cd <your devel directory>/src/hpp_tutorial/tutorial_6
 docker build --build-arg DOCKER_USER=`id -u` --build-arg DOCKER_GROUP=`id -g` \
     -t hpp-tutorial-ros2 .
 ```
