@@ -18,8 +18,7 @@ the container):
 
 In the host machine, cd into tutorial_6 directory. In a bash terminal, run
 ```
-docker build --build-arg DOCKER_USER=`id -u` --build-arg DOCKER_GROUP=`id -g` \
-    -t hpp-tutorial-ros2 .
+docker build -t hpp-tutorial-ros2 .
 ```
 
 Then start the container:

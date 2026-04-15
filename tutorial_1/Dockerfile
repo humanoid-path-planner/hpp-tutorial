@@ -1,8 +1,5 @@
 FROM ros:jazzy
 
-ARG DOCKER_USER=user
-ARG DOCKER_GROUP=user
-
 RUN apt-get update -y \
  && DEBIAN_FRONTEND=noninteractive apt-get install -qqy curl
 RUN mkdir -p /etc/apt/keyrings
@@ -29,8 +26,7 @@ RUN dpkg -i midori_11.6-1_amd64.deb
 RUN rm -f midori_11.6-1_amd64.deb
 
 # Add user
-RUN addgroup --gid $DOCKER_GROUP user
-RUN adduser --uid $DOCKER_USER --gid $DOCKER_GROUP user
+RUN adduser user
 
 USER user
 RUN mkdir /home/user/devel
