@@ -75,7 +75,7 @@ for acc in [0.25, 0.5, 1.0, 2.0]:
     print(f"  maxAcceleration={acc:.2f} -> duration={p.length():.3f} s")
 ```
 
-## TOPPRA
+### TOPPRA
 
 TOPPRA (Time-Optimal Path Parameterization based on Reachability Analysis) computes the
 time-optimal parameterization subject to velocity and torque constraints. Unlike
