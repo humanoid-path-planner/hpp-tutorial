@@ -20,27 +20,88 @@ The path `p1` uses a dimensionless path parameter `s` ranging from `0` to `p1.le
 parameter does not correspond to real time: the robot has no notion of velocity or acceleration
 along this path.
 
-## Path optimization
+## Visualizing the raw path
 
-The path returned by the planner is collision-free but typically jagged, with unnecessary detours.
-Before time-parameterizing, we should optimize the geometric path using shortcutting algorithms:
+A small helper in `plot.py` plots joint positions, velocities, and accelerations against the path
+parameter. It returns the `matplotlib` figure so you can inspect it interactively or save it:
 
 ```python
-from pyhpp.core import RandomShortcut
+from plot import plotTraj
 
-shortcut = RandomShortcut(problem)
-p1_opt = shortcut.optimize(p1)
-print(f"Optimized path length: {p1_opt.length():.3f} (was {p1.length():.3f})")
+fig = plotTraj(p1, 0, 7, order=2)
+fig.savefig("/tmp/p1.png")
 ```
 
-`RandomShortcut` repeatedly picks two random points along the path and tries to connect them with a
-straight segment. If the shortcut is collision-free and shorter, it replaces the original sub-path.
+The raw path `p1` is collision-free but typically jagged, with abrupt direction changes. The
+acceleration plot shows large spikes — this is what the rest of this tutorial smooths out.
+
+## Path optimization
+
+Before time parameterization we smooth the path with `SplineGradientBased_bezier3`, which fits a
+cubic-Bézier spline that minimizes integral squared acceleration while remaining collision-free:
+
+```python
+from pyhpp.core import SplineGradientBased_bezier3
+
+bezier = SplineGradientBased_bezier3(problem)
+p2 = bezier.optimize(p1)
+print(f"Smoothed path length: {p2.length():.3f} (was {p1.length():.3f})")
+```
+
+The resulting path is C²-continuous — a prerequisite for producing a smooth velocity profile in
+the next step.
 
 ## Time parameterization
-### SimpleTimeParameterization
 
-`SimpleTimeParameterization` computes a polynomial time parameterization that maps real time `t` to
-the path parameter `s`, while respecting joint velocity and acceleration limits.
+### TOPPRA
+
+TOPPRA (Time-Optimal Path Parameterization based on Reachability Analysis) computes the
+time-optimal parameterization subject to velocity, acceleration, and torque constraints. Applied
+directly to the raw path `p1`, TOPPRA produces endpoint velocity discontinuities and an
+acceleration spike at the start. Applied after `SplineGradientBased_bezier3`, the smoothed
+spline eliminates these and keeps accelerations bounded throughout.
+
+```python
+import numpy as np
+from pyhpp_toppra import Toppra
+
+toppra = Toppra(problem)
+toppra.velocityScale = 0.5
+toppra.effortScale = -1
+toppra.N = 100
+toppra.accelerationLimits = np.array(12 * [0.5])
+p3 = toppra.optimize(p2)
+print(f"TOPPRA duration: {p3.length():.3f} s")
+```
+
+Parameters:
+- `velocityScale`: scaling factor for velocity limits (1.0 = full velocity). Use a small value
+  (e.g. 0.5) for slower, more visible motions.
+- `effortScale`: scaling factor for torque limits. Set to a negative value to disable torque
+  constraints. **Note**: torque constraints require mass and inertia data in the robot URDF. The
+  Staubli model has no dynamics data, so `effortScale` must be set to `-1` (disabled).
+- `accelerationLimits`: per-DOF acceleration cap. The vector size must match the problem's
+  **velocity** dimension, not the configuration size — here it is `12` (6-DOF Staubli arm +
+  6-DOF plate freeflyer). Passing a 7-vector raises
+  `ValueError: Acceleration limits should be of size 12 ...`.
+- `N`: minimal number of discretization points along the path.
+- `interpolationMethod`: `"constant_acceleration"` or `"hermite"`.
+- `gridpointMethod`: `"param_space"` or `"time_space"`.
+
+Compare the profiles with and without Bézier smoothing:
+
+```python
+fig = plotTraj(toppra.optimize(p1), 0, 7, order=2)
+fig.savefig("/tmp/toppra_raw.png")
+fig = plotTraj(p3, 0, 7, order=2)
+fig.savefig("/tmp/toppra_smoothed.png")
+```
+
+### SimpleTimeParameterization (simpler alternative)
+
+When `hpp-toppra` is not available, `SimpleTimeParameterization` computes a polynomial time
+parameterization that maps real time `t` to the path parameter `s`, while respecting joint
+velocity and acceleration limits. It is less optimal than TOPPRA but needs no extra dependency.
 
 ```python
 from pyhpp.core import SimpleTimeParameterization
@@ -49,70 +110,21 @@ stp = SimpleTimeParameterization(problem)
 stp.order = 2
 stp.safety = 0.95
 stp.maxAcceleration = 0.5
-p1_stp = stp.optimize(p1_opt)
+p_stp = stp.optimize(p2)
+print(f"STP duration: {p_stp.length():.3f} s")
 ```
 
-After optimization, `p1_stp.length()` returns the total execution time in seconds:
-```python
-print(f"Optimized path length: {p1_opt.length():.3f}")
-print(f"STP duration: {p1_stp.length():.3f} s")
-```
-
-The parameters control the time parameterization:
+Parameters:
 - `order`: polynomial continuity order. `0` = linear (C0), `1` = cubic (C1, zero velocity at
   endpoints), `2` = quintic (C2, zero velocity and acceleration at endpoints).
 - `safety`: scaling factor for velocity limits (0.95 = use 95% of max velocity).
-- `maxAcceleration`: maximum acceleration per DOF in rad/s². Only used when `order >= 2`. Set to a
-  negative value to disable. **Use a small value** (e.g. 0.5) to produce slower, more visible
-  motions — this makes the difference between the raw path `p1` and the parameterized trajectory
-  `p1_stp` easier to observe.
-
-Try different values to see the effect on execution time:
-```python
-for acc in [0.25, 0.5, 1.0, 2.0]:
-    stp.maxAcceleration = acc
-    p = stp.optimize(p1_opt)
-    print(f"  maxAcceleration={acc:.2f} -> duration={p.length():.3f} s")
-```
-
-### TOPPRA
-
-TOPPRA (Time-Optimal Path Parameterization based on Reachability Analysis) computes the
-time-optimal parameterization subject to velocity and torque constraints. Unlike
-`SimpleTimeParameterization`, it accounts for the robot's dynamics.
-
-```python
-from pyhpp_toppra import Toppra
-
-toppra = Toppra(problem)
-toppra.velocityScale = 0.5
-toppra.effortScale = -1
-toppra.N = 100
-p1_toppra = toppra.optimize(p1_opt)
-```
-
-Compare the results:
-```python
-print(f"TOPPRA duration: {p1_toppra.length():.3f} s")
-```
-
-TOPPRA typically produces shorter execution times than `SimpleTimeParameterization` because it
-computes the time-optimal solution rather than a conservative polynomial approximation.
-
-The parameters are:
-- `velocityScale`: scaling factor for velocity limits (1.0 = full velocity). Use a small value
-  (e.g. 0.5) for slower, more visible motions.
-- `effortScale`: scaling factor for torque limits. Set to a negative value to disable torque
-  constraints. **Note**: torque constraints require mass and inertia data in the robot URDF. The
-  current Staubli model has no dynamics data, so `effortScale` must be set to `-1` (disabled).
-- `N`: minimal number of discretization points along the path.
-- `interpolationMethod`: `"constant_acceleration"` or `"hermite"`.
-- `gridpointMethod`: `"param_space"` or `"time_space"`.
+- `maxAcceleration`: maximum acceleration per DOF in rad/s². Only used when `order >= 2`. Set to
+  a negative value to disable.
 
 ## Visualization
 
 You can visualize the path in the viewer:
 ```python
 v = display()
-v.loadPath(p1_stp)
+v.loadPath(p3)
 ```

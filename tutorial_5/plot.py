@@ -28,4 +28,4 @@ def plotTraj(p, rmin, rmax, dt=0.01, order=2):
             ax1.plot(times, velocities[:, i], label=f"q{i}")
         if order >= 2:
             ax2.plot(times, accelerations[:, i], label=f"q{i}")
-    fig.show()
+    return fig
