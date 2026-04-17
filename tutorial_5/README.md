@@ -29,7 +29,7 @@ parameter. It returns the `matplotlib` figure so you can inspect it interactivel
 from plot import plotTraj
 
 fig = plotTraj(p1, 0, 7, order=2)
-fig.savefig("/tmp/p1.png")
+fig.show()
 ```
 
 The raw path `p1` is collision-free but typically jagged, with abrupt direction changes. The
@@ -92,9 +92,9 @@ Compare the profiles with and without Bézier smoothing:
 
 ```python
 fig = plotTraj(toppra.optimize(p1), 0, 7, order=2)
-fig.savefig("/tmp/toppra_raw.png")
+fig.show()
 fig = plotTraj(p3, 0, 7, order=2)
-fig.savefig("/tmp/toppra_smoothed.png")
+fig.show()
 ```
 
 ### SimpleTimeParameterization (simpler alternative)

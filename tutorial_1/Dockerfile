@@ -19,7 +19,7 @@ RUN apt-get update -y && DEBIAN_FRONTEND=noninteractive apt-get install -qqy \
     libffi8 libfontconfig1 libfreetype6 libglib2.0-0 libgtk-3-0 libnspr4 libnss3 libpango-1.0-0 \
     libstdc++6 libvpx9 apulse \
     libx11-6 libx11-xcb1 libxcb-shm0 libxcb1 libxcomposite1 libxdamage1 libxext6 libxfixes3 \
-    libxrandr2 libxtst6 zlib1g fontconfig procps
+    libxrandr2 libxtst6 zlib1g fontconfig procps libxcb-cursor0
 
 COPY midori_11.6-1_amd64.deb .
 RUN dpkg -i midori_11.6-1_amd64.deb
@@ -41,4 +41,5 @@ ENV DEVEL_HPP_DIR=/home/user/devel
 
 RUN echo "source $DEVEL_HPP_DIR/config.sh" >> /home/user/.bashrc
 RUN python3 -m venv /home/user/install-pip
-RUN /home/user/install-pip/bin/pip install "numpy==1.26.4" trimesh pycollada viser matplotlib
+RUN /home/user/install-pip/bin/pip install "numpy==1.26.4" trimesh pycollada viser \
+    matplotlib PyQt6
