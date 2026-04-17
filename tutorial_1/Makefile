@@ -6,6 +6,7 @@
 HPP_REPO=https://github.com/humanoid-path-planner
 FLORENT_REPO=https://github.com/florent-lamiraux
 JRL_REPO=https://github.com/jrl-umi3218
+TOPPRA_REPO=https://github.com/hungpham2511
 
 SRC_DIR=${DEVEL_HPP_DIR}/src
 ifndef INSTALL_HPP_DIR
@@ -77,8 +78,8 @@ hpp-exec_extra_flags=${PYTHON_FLAGS}
 ##################################
 # {{{ Packages for toppra
 
-toppra_repository=${HPP_REPO}
-toppra_branch=main
+toppra_repository=${TOPPRA_REPO}
+toppra_branch=0.6.7
 toppra_extra_flags= -DBUILD_TESTS=OFF -DPYTHON_BINDINGS=OFF
 
 hpp-toppra_repository=${HPP_REPO}
