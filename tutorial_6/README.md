@@ -19,16 +19,13 @@ the container):
 In the host machine, cd into tutorial_6 directory. In a bash terminal, run
 ```
 docker build --build-arg DOCKER_USER=`id -u` --build-arg DOCKER_GROUP=`id -g` \
-    -t hpp-tutorial-ros2 .
+    -t hpp-ros2:tuto .
 ```
 
 Then start the container:
 
 ```
-cd <your devel directory>
-docker run --gpus all --env DISPLAY --env QT_X11_NO_MITSHM=1 \
-    --volume=/tmp/.X11-unix:/tmp/.X11-unix:rw --net host --privileged \
-    -v .:/home/user/devel --rm --name hpp -it hpp-tutorial-ros2
+./run_docker.sh
 ```
 
 Inside the container, build the packages (first time only):
