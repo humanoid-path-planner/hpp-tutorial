@@ -1,7 +1,7 @@
 """Launch Franka fr3 in Gazebo with a joint_trajectory_controller for HPP tutorial 6.
 
 Usage (inside the docker container):
-    ros2 launch /home/user/devel/install/share/hpp_tutorial/tutorial_6/launch_sim.py
+    ros2 launch hpp_tutorial tutorial_6/launch_sim.py
 """
 
 import os

@@ -43,7 +43,7 @@ Source the ROS2 and Franka environments, then launch the Gazebo simulation with
 a `joint_trajectory_controller`:
 
 ```
-ros2 launch ~/devel/install/share/hpp_tutorial/tutorial_6/launch_sim.py
+ros2 launch hpp_tutorial tutorial_6/launch_sim.py
 ```
 
 Wait until you see `Configured and activated joint_trajectory_controller` in the
