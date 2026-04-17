@@ -25,7 +25,8 @@ docker build --build-arg DOCKER_USER=`id -u` --build-arg DOCKER_GROUP=`id -g` \
 Then start the container:
 
 ```
-./run_docker.sh
+cd ../../..
+./src/hpp_tutorial/tutorial_6/run_docker.sh
 ```
 
 Inside the container, build the packages (first time only):
@@ -42,9 +43,6 @@ Source the ROS2 and Franka environments, then launch the Gazebo simulation with
 a `joint_trajectory_controller`:
 
 ```
-source /opt/ros/jazzy/setup.bash
-source /opt/franka_ws/install/setup.bash
-source ~/devel/config.sh
 ros2 launch ~/devel/install/share/hpp_tutorial/tutorial_6/launch_sim.py
 ```
 

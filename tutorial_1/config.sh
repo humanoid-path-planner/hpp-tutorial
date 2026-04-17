@@ -2,6 +2,13 @@ export INSTALL_HPP_DIR=$DEVEL_HPP_DIR/install
 export INSTALL_PIP_DIR=$HOME/install-pip
 export ROBOTPKG=/opt/openrobots
 
+if [ -f "/opt/ros/jazzy/setup.bash" ]; then
+    source /opt/ros/jazzy/setup.bash
+fi
+if [ -f "/opt/franka_ws/install/setup.bash" ]; then
+    source /opt/franka_ws/install/setup.bash
+fi
+
 export PATH=$INSTALL_HPP_DIR/bin:$ROBOTPKG/bin:$PATH
 export PKG_CONFIG_PATH=$INSTALL_HPP_DIR/lib/pkgconfig/:$ROBOTPKG/lib/pkgconfig
 
