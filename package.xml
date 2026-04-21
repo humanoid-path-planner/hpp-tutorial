@@ -7,7 +7,7 @@
   </description>
   <author>Florent Lamiraux</author>
   <maintainer email="hpp@laas.fr">Florent Lamiraux</maintainer>
-  <license>LGPL v2</license>
+  <license>BSD 2-Clause</license>
   <build_depend>hpp-corbaserver</build_depend>
   <build_depend>hpp-manipulation-corba</build_depend>
 </package>
