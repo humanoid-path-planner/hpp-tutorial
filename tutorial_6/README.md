@@ -39,7 +39,7 @@ make hpp_tutorial.install
 
 ## Terminal 1: Launching the simulation
 
-Source the ROS2 and Franka environments, then launch the Gazebo simulation with
+Launch the Gazebo simulation with
 a `joint_trajectory_controller`:
 
 ```
