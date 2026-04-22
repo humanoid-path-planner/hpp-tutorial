@@ -43,7 +43,7 @@ Launch the Gazebo simulation with
 a `joint_trajectory_controller`:
 
 ```
-ros2 launch hpp_tutorial tutorial_6/launch_sim.py
+ros2 launch hpp_tutorial tutorial_6_launch.py
 ```
 
 Wait until you see `Configured and activated joint_trajectory_controller` in the
@@ -60,9 +60,6 @@ docker exec -it hpp bash
 Source the environments and run the tutorial script:
 
 ```
-source /opt/ros/jazzy/setup.bash
-source /opt/franka_ws/install/setup.bash
-source ~/devel/config.sh
 cd ~/devel/src/hpp_tutorial/tutorial_6
 python -i init.py
 ```
@@ -91,7 +88,7 @@ print(f"Trajectory duration: {p_timed.length():.2f} seconds")
 Sample a configuration at a specific time (e.g., t=1.0s):
 ```python
 q, success = p_timed(1.0)
-print(f"Config at t=1.0s: {q[:7]}")  # First 7 values are arm joints
+print(f"Config at t=1.0s: {q}")  # First 7 values are arm joints
 ```
 
 The HPP configuration vector has 9 elements: 7 arm joints + 2 finger joints.
@@ -111,9 +108,9 @@ times = []
 for i in range(n_samples + 1):
     t = (i / n_samples) * p_timed.length()
     q, success = p_timed(t)
-    if success:
-        configs.append(np.array(q))
-        times.append(t)
+    assert(success)
+    configs.append(np.array(q))
+    times.append(t)
 
 print(f"Extracted {len(configs)} waypoints over {times[-1]:.2f} seconds")
 ```
@@ -143,3 +140,8 @@ the terminal.
 
 Try different values of `n_samples` (e.g., 10, 100, 200) and observe how it
 affects the smoothness of motion in Gazebo.
+
+You can also play the reverse motion using
+```
+p_reversed = p_timed.reverse()
+```
