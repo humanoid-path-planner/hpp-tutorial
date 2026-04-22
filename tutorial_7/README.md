@@ -16,23 +16,12 @@ gripper open/close actions between trajectory segments.
 Use the same Docker image as tutorial 6 (`hpp-tutorial-ros2`). If you haven't
 built it yet, see the [tutorial 6 instructions](../tutorial_6/README.md).
 
-Inside the container, build the packages (first time only):
-
-```
-cd ~/devel/src
-make hpp-exec.install
-make hpp_tutorial.install
-```
-
 ## Terminal 1: Launching the simulation
 
-Source the environments, then launch Gazebo with the FR3 including its gripper:
+Launch Gazebo with the FR3 including its gripper:
 
 ```
-source /opt/ros/jazzy/setup.bash
-source /opt/franka_ws/install/setup.bash
-source ~/devel/config.sh
-ros2 launch ~/devel/install/share/hpp_tutorial/tutorial_7/launch_sim.py
+ros2 launch hpp_tutorial tutorial_7_launch.py
 ```
 
 Wait until you see `Configured and activated gripper_controller` in the output.
@@ -52,9 +41,6 @@ docker exec -it hpp bash
 Source the environments and run the tutorial script:
 
 ```
-source /opt/ros/jazzy/setup.bash
-source /opt/franka_ws/install/setup.bash
-source ~/devel/config.sh
 cd ~/devel/src/hpp_tutorial/tutorial_7
 python -i init.py
 ```
@@ -72,7 +58,7 @@ v.loadPath(p_timed)
 
 ## Understanding segments and actions
 
-The key difference from tutorial 6 is that the trajectory has multiple phases:
+The key difference with tutorial 6 is that the trajectory has multiple phases:
 approach, grasp, transport, and release. The `hpp_exec` package detects these
 transitions from the constraint graph and splits the trajectory into **segments**
 with gripper actions between them.
