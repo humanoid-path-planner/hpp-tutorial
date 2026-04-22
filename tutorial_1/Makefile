@@ -4,7 +4,6 @@
 #
 
 HPP_REPO=https://github.com/humanoid-path-planner
-FLORENT_REPO=https://github.com/florent-lamiraux
 JRL_REPO=https://github.com/jrl-umi3218
 TOPPRA_REPO=https://github.com/hungpham2511
 
@@ -59,7 +58,7 @@ hpp-doc_branch=devel
 hpp-doc_repository=${HPP_REPO}
 
 hpp_tutorial_branch=devel
-hpp_tutorial_repository=${FLORENT_REPO}
+hpp_tutorial_repository=${HPP_REPO}
 hpp_tutorial_extra_flags=${HPP_EXTRA_FLAGS} ${PYTHON_FLAGS}
 
 hpp-gepetto-viewer_branch=devel
