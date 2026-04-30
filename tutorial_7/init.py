@@ -6,6 +6,15 @@ from pyhpp.manipulation import Device, Graph, ManipulationPlanner, Problem, urdf
 from pyhpp.manipulation.constraint_graph_factory import ConstraintGraphFactory
 from pyhpp_viser import Viewer
 
+try:
+    from hpp_exec import execute_segments, segments_from_graph, send_trajectory
+
+    ROS_EXECUTION_AVAILABLE = True
+    ROS_EXECUTION_IMPORT_ERROR = None
+except ImportError as exc:
+    ROS_EXECUTION_AVAILABLE = False
+    ROS_EXECUTION_IMPORT_ERROR = exc
+
 
 def display():
     v = Viewer(robot)
@@ -13,6 +22,10 @@ def display():
     v.setProblem(problem)
     v.setGraph(graph)
     return v
+
+
+ARM_JOINT_NAMES = [f"fr3_joint{i}" for i in range(1, 8)]
+GRIPPER_JOINT_NAMES = ["fr3_finger_joint1"]
 
 
 # Load FR3 robot with gripper
@@ -178,4 +191,62 @@ print("To visualize:")
 print("  v = display()")
 print("  v.loadPath(p_timed)")
 print()
-print("To execute on Gazebo, see README.md for gripper setup and execution code.")
+
+
+if ROS_EXECUTION_AVAILABLE:
+
+    def open_gripper():
+        return send_trajectory(
+            [np.array([0.0]), np.array([0.035])],
+            [0.0, 0.5],
+            joint_names=GRIPPER_JOINT_NAMES,
+            controller_topic="/gripper_controller/follow_joint_trajectory",
+        )
+
+    def close_gripper():
+        return send_trajectory(
+            [np.array([0.035]), np.array([0.0])],
+            [0.0, 0.5],
+            joint_names=GRIPPER_JOINT_NAMES,
+            controller_topic="/gripper_controller/follow_joint_trajectory",
+        )
+
+    segments = segments_from_graph(
+        configs,
+        times,
+        graph,
+        on_grasp=close_gripper,
+        on_release=open_gripper,
+    )
+    if segments:
+        segments[0].pre_actions.insert(0, open_gripper)
+
+    def execute_on_gazebo():
+        return execute_segments(
+            segments,
+            configs,
+            times,
+            joint_names=ARM_JOINT_NAMES,
+            joint_indices=list(range(7)),
+        )
+
+    print("To execute on Gazebo:")
+    print("  execute_on_gazebo()")
+    print()
+    print("Useful helpers:")
+    print("  open_gripper()")
+    print("  close_gripper()")
+else:
+    segments = None
+
+    def _unavailable(*_args, **_kwargs):
+        raise RuntimeError(
+            "ROS2 execution helpers are unavailable in this Python environment."
+        ) from ROS_EXECUTION_IMPORT_ERROR
+
+    open_gripper = _unavailable
+    close_gripper = _unavailable
+    execute_on_gazebo = _unavailable
+
+    print("ROS2 execution helpers are unavailable in this Python env.")
+    print(f"Import error: {ROS_EXECUTION_IMPORT_ERROR}")
