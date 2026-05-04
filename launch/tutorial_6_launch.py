@@ -8,6 +8,7 @@ import os
 
 import xacro
 from ament_index_python.packages import get_package_share_directory
+from launch import LaunchContext, LaunchDescription
 from launch.actions import (
     DeclareLaunchArgument,
     IncludeLaunchDescription,
@@ -16,8 +17,6 @@ from launch.actions import (
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
-
-from launch import LaunchContext, LaunchDescription
 
 
 def get_robot_description_and_controllers(context: LaunchContext, robot_type):

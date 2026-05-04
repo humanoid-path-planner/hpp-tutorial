@@ -1,5 +1,6 @@
-import numpy as np
 import time
+
+import numpy as np
 from pinocchio import SE3
 from pyhpp.constraints import ComparisonType, ComparisonTypes, LockedJoint
 from pyhpp.core import RandomShortcut, SimpleTimeParameterization
@@ -10,12 +11,11 @@ from pyhpp_viser import Viewer
 try:
     import rclpy
     from geometry_msgs.msg import Pose
+    from hpp_exec import execute_segments, segments_from_graph, send_trajectory
     from rclpy.node import Node
     from ros_gz_interfaces.msg import Entity
     from ros_gz_interfaces.srv import SetEntityPose
     from std_msgs.msg import Empty
-
-    from hpp_exec import execute_segments, segments_from_graph, send_trajectory
 
     ROS_EXECUTION_AVAILABLE = True
     ROS_EXECUTION_IMPORT_ERROR = None
