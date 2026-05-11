@@ -180,18 +180,7 @@ stp.maxAcceleration = 1.0
 p_timed = stp.optimize(p_opt)
 print(f"Trajectory duration: {p_timed.length():.3f} s")
 
-# Extract waypoints
-n_samples = 200
-configs = []
-times = []
-for i in range(n_samples + 1):
-    t = (i / n_samples) * p_timed.length()
-    q, success = p_timed(t)
-    if success:
-        configs.append(np.array(q))
-        times.append(t)
-
-print(f"Extracted {len(configs)} waypoints, ready to execute.")
+print("Timed path ready for visualization and execution.")
 print()
 print("To visualize:")
 print("  v = display()")
@@ -339,13 +328,13 @@ if ROS_EXECUTION_AVAILABLE:
     def prepare_sim_for_run():
         return box_controller.reset_pose(BOX_INITIAL_POSITION) and open_gripper()
 
-    segments = segments_from_graph(
-        configs,
-        times,
+    configs, times, segments = segments_from_graph(
+        p_timed,
         graph,
         on_grasp=grasp_box,
         on_release=release_box,
     )
+    print(f"Extracted {len(configs)} waypoints, ready to execute.")
     if segments:
         segments[0].pre_actions.insert(0, open_gripper)
 
