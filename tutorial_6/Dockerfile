@@ -27,6 +27,7 @@ RUN apt-get update -y && DEBIAN_FRONTEND=noninteractive apt-get install -qqy \
     ros-jazzy-sdformat-urdf \
     ros-jazzy-gz-ros2-control \
     ros-jazzy-ros-gz-sim \
+    ros-jazzy-ros-gz-bridge \
     ros-jazzy-joint-state-publisher-gui \
     ros-jazzy-xacro \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
