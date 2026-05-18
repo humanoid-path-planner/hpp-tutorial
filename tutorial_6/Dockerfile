@@ -12,9 +12,13 @@ ARG FRANKA_ROS2_VERSION=v3.2.2
 USER root
 
 # ROS2 control packages
-RUN apt-get update -y && DEBIAN_FRONTEND=noninteractive apt-get install -qqy \
+RUN apt-get update -y \
+    && DEBIAN_FRONTEND=noninteractive apt-get dist-upgrade -qqy \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -qqy \
+    ros-jazzy-fastcdr \
     ros-jazzy-control-msgs \
     ros-jazzy-trajectory-msgs \
+    ros-jazzy-joint-state-broadcaster \
     ros-jazzy-joint-trajectory-controller \
     ros-jazzy-controller-manager \
     ros-jazzy-ros2controlcli \
