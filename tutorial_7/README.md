@@ -135,3 +135,14 @@ box, the arm carry the box to the goal, the fingers open, and the arm retreat.
 
 `reset_box_pose()` detaches the simulated box if needed and places it back at
 the planned start pose before execution.
+
+## More details about the pre and post actions
+
+In script `init.py` several functions are defined.
+
+  - `open_gripper` and `close_gripper` sends a reference value for "fr3_finger_joint1" in order
+    to open or close the gripper. This function uses `send_trajectory` to do so, as in
+    `tutorial_6`. On the real robot, this is performed by a ROS action instead.
+  - `grasp_box` and `release_box` call `attach_box` and `detach_box` respectively. These functions
+    tell gazebo that the box is attached to or detached from the end effector. They are useless on
+    the real robot.
