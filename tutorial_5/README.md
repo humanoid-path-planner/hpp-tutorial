@@ -48,7 +48,7 @@ p2 = bezier.optimize(p1)
 print(f"Smoothed path length: {p2.length():.3f} (was {p1.length():.3f})")
 ```
 
-The resulting path is C²-continuous — a prerequisite for producing a smooth velocity profile in
+The resulting path is continuously differentiable (C1),  a prerequisite for producing a smooth velocity profile in
 the next step.
 
 ## Time parameterization
@@ -91,7 +91,7 @@ Parameters:
 Compare the profiles with and without Bézier smoothing:
 
 ```python
-fig = plotTraj(toppra.optimize(p1), 0, 7, order=2)
+fig = plotTraj(p3, 0, 7, order=2)
 fig.show()
 fig = plotTraj(p3, 0, 7, order=2)
 fig.show()
