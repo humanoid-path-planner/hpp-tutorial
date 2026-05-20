@@ -52,8 +52,9 @@ python -i init.py
 
 The script loads the FR3, the ground, and a box. It solves a pick-and-place
 problem that moves the box from `(0.4, -0.2)` to `(0.4, 0.2)`, optimizes the
-path, enforces transition semantics, and time-parameterizes it with
-`SimpleTimeParameterization`.
+path, time-parameterizes it with `SimpleTimeParameterization`.
+
+Note that between optimization and time parameterization, an object called `EnforceTransitionSemantic` is called. This steps labels each sub-path with the transition of the graph the sub-path belongs to. This step is necessary before executing the path in order to place pre-actions and post-actions at the right times.
 
 You can visualize the planned path in the browser viewer:
 
@@ -87,8 +88,6 @@ print_segments(segments)
 
 The table shows the segment times, graph transition names, nominal states,
 observed states, and how many pre/post actions are attached.
-`EnforceTransitionSemantic` keeps the graph transition stored on each optimized
-subpath consistent with the states observed along that subpath.
 
 For this tutorial, use the rows named
 `fr3/gripper > box/handle | f_23` and
