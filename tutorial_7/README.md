@@ -11,8 +11,8 @@ adds the gripper: the robot must open the fingers before approaching the box,
 close them before transport, then open them again at the goal.
 
 The script plans a pick-and-place path with an HPP manipulation constraint
-graph. We then use `hpp_exec` to split the path at grasp and release
-transitions and execute each segment on Gazebo.
+graph. We then use `hpp_exec` to expose the graph segments, attach the Gazebo
+actions for this problem, and execute the segments.
 
 For the full `hpp_exec` API, see the
 [hpp-exec documentation](https://gepetto.github.io/doc/hpp-exec/doxygen-html/index.html).
@@ -52,7 +52,8 @@ python -i init.py
 
 The script loads the FR3, the ground, and a box. It solves a pick-and-place
 problem that moves the box from `(0.4, -0.2)` to `(0.4, 0.2)`, optimizes the
-path, and time-parameterizes it with `SimpleTimeParameterization`.
+path, enforces transition semantics, and time-parameterizes it with
+`SimpleTimeParameterization`.
 
 You can visualize the planned path in the browser viewer:
 
@@ -66,52 +67,63 @@ At this point the useful objects are:
 - `p_timed`: the time-parameterized HPP path.
 - `configs`: sampled HPP configurations along the timed path.
 - `times`: timestamps in seconds, returned by `segments_from_graph`.
-- `segments`: executable arm trajectory slices with gripper pre-actions.
+- `segments`: graph segments where you can add pre/post actions.
 - `graph`: the HPP manipulation constraint graph.
-- `open_gripper`, `close_gripper`, `grasp_box`, and `release_box`: small
-  Gazebo actions for the gripper and simulated box attachment.
+- `open_gripper`, `close_gripper`, `grasp_box`, and `release_box`: Gazebo
+  actions for the gripper and simulated box attachment.
 
 ## Building execution segments
 
 The planned path contains the approach, transport, and retreat motion in one
-path. To execute it, ask `hpp_exec` to sample the timed path, insert graph
-transition boundaries, and split the arm motion where a gripper action is
-needed:
+path. Ask `hpp_exec` to sample the timed path and expose the HPP graph
+segments:
 
 ```python
-from hpp_exec import segments_from_graph
+from hpp_exec import print_segments, segments_from_graph
 
-configs, times, segments = segments_from_graph(
-    p_timed, graph,
-    on_grasp=grasp_box,
-    on_release=release_box,
-)
+configs, times, segments = segments_from_graph(p_timed, graph)
+print_segments(segments)
 ```
 
-For this problem, `segments` contains three phases:
+The table shows the segment times, graph transition names, nominal states,
+observed states, and how many pre/post actions are attached.
+`EnforceTransitionSemantic` keeps the graph transition stored on each optimized
+subpath consistent with the states observed along that subpath.
 
-| # | Phase     | What the arm does           | Pre-action |
-|---|-----------|-----------------------------|------------|
-| 0 | approach  | move above the box, descend | none       |
-| 1 | transport | carry the box to the goal   | attach and close |
-| 2 | retreat   | lift and return             | open and detach |
-
-Make the initial gripper state explicit before the approach:
+For this tutorial, use the rows named
+`fr3/gripper > box/handle | f_23` and
+`fr3/gripper < box/handle | 0-0_32`. With the current path they are segments
+2 and 4:
 
 ```python
-segments[0].pre_actions.insert(0, open_gripper)
+segments[0].pre_actions.append(open_gripper)
+
+# 2: fr3/gripper > box/handle | f_23
+segments[2].pre_actions.append(grasp_box)
+
+# 4: fr3/gripper < box/handle | 0-0_32
+segments[4].pre_actions.append(release_box)
+
+print_segments(segments)
 ```
 
-This matters if a previous run left the simulated gripper closed.
+Conceptually, execution has three phases:
+
+| # | Phase     | What the arm does           | Action before phase |
+|---|-----------|-----------------------------|---------------------|
+| 0 | approach  | move above the box, descend | open                |
+| 1 | transport | carry the box to the goal   | attach and close    |
+| 2 | retreat   | lift and return             | open and detach     |
 
 ## Executing the segments
 
-Send the arm segments to the arm controller and let the pre-actions command
+Send the arm segments to the arm controller and let the segment actions command
 the gripper controller:
 
 ```python
 from hpp_exec import execute_segments
 
+reset_box_pose()
 execute_segments(
     segments, configs, times,
     joint_names=[f"fr3_joint{i}" for i in range(1, 8)],
@@ -122,8 +134,5 @@ execute_segments(
 You should see the fingers open, the arm descend, the fingers close on the
 box, the arm carry the box to the goal, the fingers open, and the arm retreat.
 
-`init.py` also defines this convenience wrapper:
-
-```python
-execute_on_gazebo()
-```
+`reset_box_pose()` detaches the simulated box if needed and places it back at
+the planned start pose before execution.
