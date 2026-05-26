@@ -98,7 +98,7 @@ For this tutorial, use the rows named
 segments[0].pre_actions.append(open_gripper)
 
 # 2: fr3/gripper > box/handle | f_23
-segments[2].pre_actions.append(grasp_box)
+segments[3].pre_actions.append(grasp_box)
 
 # 4: fr3/gripper < box/handle | 0-0_32
 segments[4].pre_actions.append(release_box)
