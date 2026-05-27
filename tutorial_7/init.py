@@ -4,7 +4,6 @@ import numpy as np
 import rclpy
 from geometry_msgs.msg import Pose
 from hpp_exec import (
-    print_segments,
     segments_from_graph,
     send_trajectory,
 )
@@ -186,13 +185,6 @@ stp.maxAcceleration = 1.0
 p_timed = stp.optimize(p_opt)
 print(f"Trajectory duration: {p_timed.length():.3f} s")
 
-print("Timed path ready for visualization and execution.")
-print()
-print("To visualize:")
-print("  v = display()")
-print("  v.loadPath(p_timed)")
-print()
-
 configs, times, segments = segments_from_graph(p_timed, graph)
 
 if not rclpy.ok():
@@ -275,16 +267,3 @@ def grasp_box():
 
 def release_box():
     return open_gripper() and detach_box()
-
-
-print(f"Extracted {len(configs)} waypoints.")
-print_segments(segments)
-
-print("Useful helpers:")
-print("  open_gripper()")
-print("  close_gripper()")
-print("  grasp_box()")
-print("  release_box()")
-print("  attach_box()")
-print("  detach_box()")
-print("  reset_box_pose()")
