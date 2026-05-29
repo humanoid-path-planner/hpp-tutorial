@@ -24,10 +24,10 @@ built it yet, see the [tutorial 6 instructions](../tutorial_6/README.md).
 
 ## Terminal 1: Launching the simulation
 
-Launch Gazebo with the FR3 and its gripper:
+Launch the same FR3 and gripper simulation as tutorial 7:
 
 ```
-ros2 launch hpp_tutorial tutorial_8_launch.py
+ros2 launch hpp_tutorial tutorial_7_launch.py
 ```
 
 Wait until you see `Configured and activated gripper_controller` in the output.
@@ -66,13 +66,13 @@ At this point the useful objects are:
 - `p_timed`: the time-parameterized HPP path.
 - `configs`: sampled HPP configurations along the timed path.
 - `times`: timestamps in seconds, returned by `segments_from_graph`.
-- `segments`: graph segments where you can add pre/post actions.
+- `segments`: graph segments whose `transition_name` values can be used as
+  action dictionary keys.
 - `graph`: the HPP manipulation constraint graph.
 - `open_gripper`, `close_gripper`, `grasp_box`, and `release_box`: Gazebo
   actions for the gripper and simulated box attachment.
-- `background_open_gripper`: a `BackgroundAction` wrapping `open_gripper`.
 
-## Building execution segments
+## Building execution dictionaries
 
 The planned path contains the approach, transport, and retreat motion in one
 path. Ask `hpp_exec` to sample the timed path and expose the HPP graph
@@ -85,13 +85,51 @@ configs, times, segments = segments_from_graph(p_timed, graph)
 print_segments(segments)
 ```
 
-Configure the actions from the states observed in the segment table:
+This tutorial attaches actions by graph transition name. First wrap the opening
+action so it can run while the arm starts moving:
 
 ```python
-configure_execution_actions()
+from hpp_exec import BackgroundAction
+
+background_open_gripper = BackgroundAction(open_gripper, name="open_gripper")
 ```
 
-Conceptually, execution has three phases:
+Set the transition names where the action dictionaries should apply:
+
+```python
+approach_transition = segments[0].transition_name
+grasp_transition = segments[3].transition_name
+release_transition = segments[7].transition_name
+
+print("approach:", approach_transition)
+print("grasp:", grasp_transition)
+print("release:", release_transition)
+```
+
+Now fill the pre-action and post-action dictionaries. The keys are exact
+transition names, and the values are callables. A dictionary entry
+applies to every segment with that transition name, so check the printed table
+before executing.
+
+```python
+pre_actions_by_transition = {
+    approach_transition: background_open_gripper.start,
+    grasp_transition: [background_open_gripper.wait, grasp_box],
+    release_transition: release_box,
+}
+post_actions_by_transition = {}
+```
+
+The resulting schedule is:
+
+| Dictionary | Transition | Action                         | Effect                          |
+|------------|------------|--------------------------------|---------------------------------|
+| pre        | approach   | `background_open_gripper.start` | start opening in the background |
+| pre        | grasp      | `background_open_gripper.wait`  | wait until opening has finished |
+| pre        | grasp      | `grasp_box`                    | attach the box and close fingers |
+| pre        | release    | `release_box`                  | open fingers and detach the box |
+
+Conceptually, execution still has three phases:
 
 | # | Phase     | What the arm does           | Action before phase |
 |---|-----------|-----------------------------|---------------------|
@@ -103,7 +141,8 @@ Conceptually, execution has three phases:
 approach while the gripper controller opens the fingers. The later
 `background_open_gripper.wait()` blocks before the grasp transition, and
 `grasp_box()` runs after that segment so the fingers close once the arm has
-reached the object.
+reached the object. If a dictionary key does not match any segment transition,
+`execute_segments` returns `False` before running any action or trajectory.
 
 ## Executing the segments
 
@@ -113,13 +152,14 @@ the gripper controller:
 ```python
 from hpp_exec import execute_segments
 
-configure_execution_actions()
 close_gripper()
 reset_box_pose()
 execute_segments(
     segments, configs, times,
     joint_names=[f"fr3_joint{i}" for i in range(1, 8)],
     joint_indices=list(range(7)),
+    pre_actions_by_transition=pre_actions_by_transition,
+    post_actions_by_transition=post_actions_by_transition,
 )
 ```
 

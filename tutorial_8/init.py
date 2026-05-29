@@ -4,8 +4,6 @@ import numpy as np
 import rclpy
 from geometry_msgs.msg import Pose
 from hpp_exec import (
-    BackgroundAction,
-    print_segments,
     segments_from_graph,
     send_trajectory,
 )
@@ -270,68 +268,9 @@ def close_gripper():
     )
 
 
-background_open_gripper = BackgroundAction(open_gripper, name="open_gripper")
-
-
 def grasp_box():
     return attach_box() and close_gripper()
 
 
 def release_box():
     return open_gripper() and detach_box()
-
-
-GRASPED_STATE = "fr3/gripper grasps box/handle"
-
-
-def configure_execution_actions():
-    for segment in segments:
-        segment.pre_actions.clear()
-        segment.post_actions.clear()
-
-    grasp_indices = [
-        i
-        for i, segment in enumerate(segments)
-        if segment.actual_state_before != GRASPED_STATE
-        and segment.actual_state_after == GRASPED_STATE
-    ]
-    release_indices = [
-        i
-        for i, segment in enumerate(segments)
-        if segment.actual_state_before == GRASPED_STATE
-        and segment.actual_state_after != GRASPED_STATE
-    ]
-    if not grasp_indices or not release_indices:
-        raise RuntimeError(
-            "Could not find grasp/release segments. Run print_segments(segments)."
-        )
-
-    grasp_index = grasp_indices[0]
-    release_index = release_indices[-1]
-
-    segments[0].pre_actions.append(background_open_gripper.start)
-    segments[grasp_index].pre_actions.append(background_open_gripper.wait)
-    segments[grasp_index].post_actions.append(grasp_box)
-    segments[release_index].pre_actions.append(release_box)
-
-    print(
-        f"Configured actions: open during segment 0, "
-        f"grasp after segment {grasp_index}, release before segment {release_index}."
-    )
-    print_segments(segments)
-
-
-print(f"Extracted {len(configs)} waypoints.")
-print_segments(segments)
-
-print("Useful helpers:")
-print("  open_gripper()")
-print("  close_gripper()")
-print("  background_open_gripper.start()")
-print("  background_open_gripper.wait()")
-print("  grasp_box()")
-print("  release_box()")
-print("  attach_box()")
-print("  detach_box()")
-print("  reset_box_pose()")
-print("  configure_execution_actions()")

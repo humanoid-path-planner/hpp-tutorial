@@ -85,11 +85,6 @@ install(
 )
 
 install(
-    FILES tutorial_8/controllers.yaml
-    DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/tutorial_8
-)
-
-install(
     FILES Media/models/meshes/glasses/__Color_A05_4.png
     DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/Media/models/meshes/glasses
 )
