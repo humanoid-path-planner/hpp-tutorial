@@ -140,7 +140,7 @@ path. Ask `hpp_exec` to sample the timed path and expose the HPP graph
 segments:
 
 ```python
-from hpp_exec import print_segments, segments_from_graph
+from hpp_exec import segments_by_transition, print_segments, segments_from_graph
 
 configs, times, segments = segments_from_graph(p_timed, graph)
 print_segments(segments)
@@ -149,22 +149,29 @@ print_segments(segments)
 The table shows the segment times, graph transition names, nominal states,
 observed states, and how many pre/post actions are attached.
 
-For this tutorial, use the rows named
-`fr3/gripper > box/handle | f_23` and
-`fr3/gripper < box/handle | 0-0_32`. With the current path they are segments
-2 and 4:
+Build a transition-name map and attach the actions to the movements used in
+this tutorial:
 
 ```python
+GRASP_TRANSITION = "fr3/gripper > box/handle | f_23"
+RELEASE_TRANSITION = "fr3/gripper < box/handle | 0-0_21"
+
+segments_by_name = segments_by_transition(segments)
+
 segments[0].pre_actions.append(open_gripper)
-
-# 2: fr3/gripper > box/handle | f_23
-segments[3].pre_actions.append(grasp_box)
-
-# 4: fr3/gripper < box/handle | 0-0_32
-segments[4].pre_actions.append(release_box)
+segments_by_name[GRASP_TRANSITION][0].pre_actions.append(grasp_box)
+segments_by_name[RELEASE_TRANSITION][0].pre_actions.append(release_box)
 
 print_segments(segments)
 ```
+
+Transition names identify graph transitions, not unique path occurrences. If a
+path traverses the same graph transition twice, the transition name appears
+twice in the table and `segments_by_transition` returns both segments in
+the corresponding list. In this movement, the grasp and release transition
+names above each appear once, so index `[0]` selects the only occurrence. For a
+different movement, inspect the printed table and choose the occurrence index
+that matches the action you want to attach.
 
 Conceptually, execution has three phases:
 
