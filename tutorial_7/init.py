@@ -3,10 +3,7 @@ import time
 import numpy as np
 import rclpy
 from geometry_msgs.msg import Pose
-from hpp_exec import (
-    segments_from_graph,
-    send_trajectory,
-)
+from hpp_exec import segments_from_graph
 from pinocchio import SE3
 from pyhpp.constraints import ComparisonType, ComparisonTypes, LockedJoint
 from pyhpp.core import RandomShortcut, SimpleTimeParameterization
@@ -195,23 +192,6 @@ attach_pub = gazebo_node.create_publisher(Empty, "/box/attach", 1)
 detach_pub = gazebo_node.create_publisher(Empty, "/box/detach", 1)
 pose_client = gazebo_node.create_client(SetEntityPose, "/world/empty/set_pose")
 
-
-def attach_box():
-    attach_pub.publish(Empty())
-    rclpy.spin_once(gazebo_node, timeout_sec=0.05)
-    time.sleep(0.2)
-    gazebo_node.get_logger().info("Published '/box/attach' on Gazebo topic")
-    return True
-
-
-def detach_box():
-    detach_pub.publish(Empty())
-    rclpy.spin_once(gazebo_node, timeout_sec=0.05)
-    time.sleep(0.2)
-    gazebo_node.get_logger().info("Published '/box/detach' on Gazebo topic")
-    return True
-
-
 def reset_box_pose(xyz=BOX_INITIAL_POSITION):
     if not detach_box():
         return False
@@ -241,29 +221,3 @@ def reset_box_pose(xyz=BOX_INITIAL_POSITION):
         f"Reset box pose to x={xyz[0]:.3f}, y={xyz[1]:.3f}, z={xyz[2]:.3f}"
     )
     return True
-
-
-def open_gripper():
-    return send_trajectory(
-        [np.array([0.0]), np.array([0.035])],
-        [0.0, 0.5],
-        joint_names=GRIPPER_JOINT_NAMES,
-        controller_topic="/gripper_controller/follow_joint_trajectory",
-    )
-
-
-def close_gripper():
-    return send_trajectory(
-        [np.array([0.035]), np.array([0.0])],
-        [0.0, 0.5],
-        joint_names=GRIPPER_JOINT_NAMES,
-        controller_topic="/gripper_controller/follow_joint_trajectory",
-    )
-
-
-def grasp_box():
-    return attach_box() and close_gripper()
-
-
-def release_box():
-    return open_gripper() and detach_box()

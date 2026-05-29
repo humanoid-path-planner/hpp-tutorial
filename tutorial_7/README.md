@@ -63,6 +63,66 @@ v = display()
 v.loadPath(p_timed)
 ```
 
+## Defining gripper actions
+
+Create the actions that will be called during execution:
+
+```python
+from hpp_exec import send_trajectory
+
+
+def attach_box():
+    attach_pub.publish(Empty())
+    rclpy.spin_once(gazebo_node, timeout_sec=0.05)
+    time.sleep(0.2)
+    gazebo_node.get_logger().info("Published '/box/attach' on Gazebo topic")
+    return True
+
+
+def detach_box():
+    detach_pub.publish(Empty())
+    rclpy.spin_once(gazebo_node, timeout_sec=0.05)
+    time.sleep(0.2)
+    gazebo_node.get_logger().info("Published '/box/detach' on Gazebo topic")
+    return True
+
+
+def open_gripper():
+    return send_trajectory(
+        [np.array([0.0]), np.array([0.035])],
+        [0.0, 0.5],
+        joint_names=GRIPPER_JOINT_NAMES,
+        controller_topic="/gripper_controller/follow_joint_trajectory",
+    )
+
+
+def close_gripper():
+    return send_trajectory(
+        [np.array([0.035]), np.array([0.0])],
+        [0.0, 0.5],
+        joint_names=GRIPPER_JOINT_NAMES,
+        controller_topic="/gripper_controller/follow_joint_trajectory",
+    )
+
+
+def grasp_box():
+    return attach_box() and close_gripper()
+
+
+def release_box():
+    return open_gripper() and detach_box()
+```
+
+`open_gripper` and `close_gripper` send a reference value for
+`fr3_finger_joint1` to open or close the gripper. They use `send_trajectory`,
+as in `tutorial_6`. On the real robot, this would be performed by a ROS action
+instead.
+
+`grasp_box` and `release_box` call `attach_box` and `detach_box` respectively.
+These functions tell Gazebo that the box is attached to or detached from the
+end effector.
+
+
 At this point the useful objects are:
 
 - `p_timed`: the time-parameterized HPP path.
@@ -135,14 +195,3 @@ box, the arm carry the box to the goal, the fingers open, and the arm retreat.
 
 `reset_box_pose()` detaches the simulated box if needed and places it back at
 the planned start pose before execution.
-
-## More details about the pre and post actions
-
-In script `init.py` several functions are defined.
-
-  - `open_gripper` and `close_gripper` sends a reference value for "fr3_finger_joint1" in order
-    to open or close the gripper. This function uses `send_trajectory` to do so, as in
-    `tutorial_6`. On the real robot, this is performed by a ROS action instead.
-  - `grasp_box` and `release_box` call `attach_box` and `detach_box` respectively. These functions
-    tell gazebo that the box is attached to or detached from the end effector. They are useless on
-    the real robot.
