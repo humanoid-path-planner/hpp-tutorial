@@ -8,6 +8,7 @@
   <author>Florent Lamiraux</author>
   <maintainer email="hpp@laas.fr">Florent Lamiraux</maintainer>
   <license>BSD 2-Clause</license>
-  <build_depend>hpp-corbaserver</build_depend>
-  <build_depend>hpp-manipulation-corba</build_depend>
+  <build_depend>hpp-manipulation</build_depend>
+  <build_depend>hpp-gepetto-viewer</build_depend>
+  <exec_depend>example-robot-data</exec_depend>
 </package>
