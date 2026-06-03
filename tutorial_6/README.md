@@ -64,9 +64,10 @@ cd ~/devel/src/hpp_tutorial/tutorial_6
 python -i init.py
 ```
 
-The script loads the FR3 robot, plans a motion from the "ready" position to a
-goal configuration using BiRRT, optimizes it with RandomShortcut, and applies
-time parameterization using SimpleTimeParameterization (as seen in tutorial 5).
+The script loads the FR3 robot, plans a motion from the current robot
+configuration to a goal configuration using BiRRT, optimizes it with
+RandomShortcut, and applies time parameterization using
+SimpleTimeParameterization (as seen in tutorial 5).
 
 You can visualize the planned path in the browser viewer:
 ```python
