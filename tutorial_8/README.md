@@ -79,7 +79,7 @@ path. Ask `hpp_exec` to sample the timed path and expose the HPP graph
 segments:
 
 ```python
-from hpp_exec import print_segments, segments_from_graph
+from hpp_exec import segments_by_transition, print_segments, segments_from_graph
 
 configs, times, segments = segments_from_graph(p_timed, graph)
 print_segments(segments)
@@ -94,28 +94,31 @@ from hpp_exec import BackgroundAction
 background_open_gripper = BackgroundAction(open_gripper, name="open_gripper")
 ```
 
-Set the transition names where the action dictionaries should apply:
+Set the transition names where the action dictionaries should apply, then
+check how many path occurrences use each transition:
 
 ```python
-approach_transition = segments[0].transition_name
-grasp_transition = segments[3].transition_name
-release_transition = segments[7].transition_name
+APPROACH_TRANSITION = "Loop | f"
+GRASP_TRANSITION = "fr3/gripper > box/handle | f_23"
+RELEASE_TRANSITION = "fr3/gripper < box/handle | 0-0_21"
 
-print("approach:", approach_transition)
-print("grasp:", grasp_transition)
-print("release:", release_transition)
+segments_by_name = segments_by_transition(segments)
 ```
 
 Now fill the pre-action and post-action dictionaries. The keys are exact
 transition names, and the values are callables. A dictionary entry
 applies to every segment with that transition name, so check the printed table
-before executing.
+and the occurrence counts before executing. In this movement, each transition
+used below appears once. If a different movement repeats one of these names,
+the dictionary action would run for every occurrence; use
+`segments_by_name[TRANSITION_NAME][i].pre_actions` when you need to attach an
+action to one chosen occurrence.
 
 ```python
 pre_actions_by_transition = {
-    approach_transition: background_open_gripper.start,
-    grasp_transition: [background_open_gripper.wait, grasp_box],
-    release_transition: release_box,
+    APPROACH_TRANSITION: background_open_gripper.start,
+    GRASP_TRANSITION: [background_open_gripper.wait, grasp_box],
+    RELEASE_TRANSITION: release_box,
 }
 post_actions_by_transition = {}
 ```
