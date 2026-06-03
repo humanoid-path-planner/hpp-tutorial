@@ -192,6 +192,23 @@ attach_pub = gazebo_node.create_publisher(Empty, "/box/attach", 1)
 detach_pub = gazebo_node.create_publisher(Empty, "/box/detach", 1)
 pose_client = gazebo_node.create_client(SetEntityPose, "/world/empty/set_pose")
 
+
+def attach_box():
+    attach_pub.publish(Empty())
+    rclpy.spin_once(gazebo_node, timeout_sec=0.05)
+    time.sleep(0.2)
+    gazebo_node.get_logger().info("Published '/box/attach' on Gazebo topic")
+    return True
+
+
+def detach_box():
+    detach_pub.publish(Empty())
+    rclpy.spin_once(gazebo_node, timeout_sec=0.05)
+    time.sleep(0.2)
+    gazebo_node.get_logger().info("Published '/box/detach' on Gazebo topic")
+    return True
+
+
 def reset_box_pose(xyz=BOX_INITIAL_POSITION):
     if not detach_box():
         return False
