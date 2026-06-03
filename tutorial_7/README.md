@@ -189,6 +189,7 @@ the gripper controller:
 ```python
 from hpp_exec import execute_segments
 
+close_gripper()
 reset_box_pose()
 execute_segments(
     segments, configs, times,
