@@ -1,14 +1,13 @@
 import time
 
 import numpy as np
+import rclpy
 from pinocchio import SE3
 from pyhpp.core import BiRRTPlanner, Problem, RandomShortcut, SimpleTimeParameterization
 from pyhpp.pinocchio import Device, urdf
 from pyhpp_viser import Viewer
-import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import JointState
-
 
 ARM_JOINT_NAMES = [f"fr3_joint{i}" for i in range(1, 8)]
 FINGER_OPEN = [0.035, 0.035]
