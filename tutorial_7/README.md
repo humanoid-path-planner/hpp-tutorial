@@ -165,14 +165,7 @@ segments_by_name[RELEASE_TRANSITION][0].pre_actions.append(release_box)
 print_segments(segments)
 ```
 
-Transition names identify graph transitions, not unique path occurrences. If a
-path traverses the same graph transition twice, the transition name appears
-twice in the table and `segments_by_transition` returns both segments in
-the corresponding list. In this movement, the grasp and release transition
-names above each appear once, so index `[0]` selects the only occurrence. For a
-different movement, inspect the printed table and choose the occurrence index
-that matches the action you want to attach.
-
+`segments_by_transition` is a dictionary that stores the segments by the transition they belong to. This is very convenient to assign pre or post-actions to each segment.
 Conceptually, execution has three phases:
 
 | # | Phase     | What the arm does           | Action before phase |
