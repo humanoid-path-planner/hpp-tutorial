@@ -1,4 +1,4 @@
-# Pick and place with gripper
+# Pick and place with gripper, introducing pre and post-actions
 
 ## Prerequisite
 

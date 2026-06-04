@@ -9,8 +9,8 @@ The various tutorials are:
 4. [tutorial 4](./tutorial_4/README.md) How to control the trajectory of a tool.
 5. [tutorial 5](./tutorial_5/README.md) How to optimize and time-parameterize paths.
 6. [tutorial 6](./tutorial_6/README.md) How to execute motions on a simulated robot.
-7. [tutorial 7](./tutorial_7/README.md) Pick and place with gripper.
-8. [tutorial 8](./tutorial_8/README.md) Pick and place while opening the gripper during arm travel.
+7. [tutorial 7](./tutorial_7/README.md) Pick and place with gripper, introducing pre and post-actions.
+8. [tutorial 8](./tutorial_8/README.md) A more efficient way to assign pre or post-actions.
 
 [![Pipeline status](https://gitlab.laas.fr/humanoid-path-planner/hpp_tutorial/badges/master/pipeline.svg)](https://gitlab.laas.fr/humanoid-path-planner/hpp_tutorial/commits/master)
 [![Coverage report](https://gitlab.laas.fr/humanoid-path-planner/hpp_tutorial/badges/master/coverage.svg?job=doc-coverage)](https://gepettoweb.laas.fr/doc/humanoid-path-planner/hpp_tutorial/master/coverage/)

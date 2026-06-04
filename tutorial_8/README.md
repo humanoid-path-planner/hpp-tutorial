@@ -1,4 +1,4 @@
-# Pick and place with overlapping gripper opening
+# A more efficient way to assign pre or post-actions
 
 ## Prerequisite
 
