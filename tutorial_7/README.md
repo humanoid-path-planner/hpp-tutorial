@@ -159,8 +159,10 @@ RELEASE_TRANSITION = "fr3/gripper < box/handle | 0-0_21"
 segments_by_name = segments_by_transition(segments)
 
 segments[0].pre_actions.append(open_gripper)
-segments_by_name[GRASP_TRANSITION][0].pre_actions.append(grasp_box)
-segments_by_name[RELEASE_TRANSITION][0].pre_actions.append(release_box)
+for segment in segments_by_name[GRASP_TRANSITION]:
+    segment.pre_actions.append(grasp_box)
+for segment in segments_by_name[RELEASE_TRANSITION]:
+    segment.pre_actions.append(release_box)
 
 print_segments(segments)
 ```
