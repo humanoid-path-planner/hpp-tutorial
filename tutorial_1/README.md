@@ -14,7 +14,7 @@ We will build a minimal docker image containing HPP software from binary package
   2. Download the Dockerfile to build the docker image.
 
 ```
-wget https://raw.githubusercontent.com/humanoid-path-planner/hpp_tutorial/refs/heads/devel/tutorial_1/Dockerfile
+wget https://raw.githubusercontent.com/humanoid-path-planner/hpp_tutorial/refs/heads/stable-tutorial/tutorial_1/Dockerfile
 ```
 
   3. Download a lightweight web browser
@@ -38,14 +38,14 @@ mkdir src
   6. get configuration file and compilation file
 
 ```
-wget https://raw.githubusercontent.com/humanoid-path-planner/hpp_tutorial/refs/heads/devel/tutorial_1/config.sh
-wget -O src/Makefile https://raw.githubusercontent.com/humanoid-path-planner/hpp_tutorial/refs/heads/devel/tutorial_1/Makefile
+wget https://raw.githubusercontent.com/humanoid-path-planner/hpp_tutorial/refs/heads/stable-tutorial/tutorial_1/config.sh
+wget -O src/Makefile https://raw.githubusercontent.com/humanoid-path-planner/hpp_tutorial/refs/heads/stable-tutorial/tutorial_1/Makefile
 ```
 
   7. Get script that will run docker
 
 ```
-wget https://raw.githubusercontent.com/humanoid-path-planner/hpp_tutorial/refs/heads/devel/tutorial_1/run_docker.sh
+wget https://raw.githubusercontent.com/humanoid-path-planner/hpp_tutorial/refs/heads/stable-tutorial/tutorial_1/run_docker.sh
 ```
 
   8. Run the container
