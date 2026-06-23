@@ -38,29 +38,29 @@ BUILD_JOBS=4
 # {{{ Packages supporting HPP_VERSION
 
 # Either a version tag (e.g. v4.3.0), stable or devel
-HPP_VERSION=devel
+HPP_VERSION=stable-tutorial
 HPP_EXTRA_FLAGS= -DBUILD_TESTING=${BUILD_TESTING} -DAUTO_UNINSTALL=OFF -DDOXYGEN_GENERATE_XML=YES
 
-hpp-constraints_branch=${HPP_VERSION}
+hpp-constraints_branch=73774d4483550679484d282e756de6aab9dce751
 hpp-constraints_repository=${HPP_REPO}
 hpp-constraints_extra_flags=${HPP_EXTRA_FLAGS}
 
-hpp-core_branch=${HPP_VERSION}
+hpp-core_branch=f8fe440b8a58fe414c2a05270718074df27074f8
 hpp-core_repository=${HPP_REPO}
 hpp-core_extra_flags=${HPP_EXTRA_FLAGS}
 
-hpp-python_branch=${HPP_VERSION}
+hpp-python_branch=28bc3a2c23745c8a905cc3f0a14d8c7a9a299697
 hpp-python_repository=${HPP_REPO}
 hpp-python_extra_flags=${HPP_EXTRA_FLAGS} -DPYTHON_STANDARD_LAYOUT=ON
 
-hpp-doc_branch=${HPP_VERSION}
+hpp-doc_branch=cfe776fd76fb99f9fca4cf748b1a670127a5317c
 hpp-doc_repository=${HPP_REPO}
 
-hpp-manipulation_branch=${HPP_VERSION}
+hpp-manipulation_branch=3f08c748d5e1747db5ef546e626c7d591ffca759
 hpp-manipulation_repository=${HPP_REPO}
 hpp-manipulation_extra_flags= ${HPP_EXTRA_FLAGS}
 
-hpp-manipulation-urdf_branch=${HPP_VERSION}
+hpp-manipulation-urdf_branch=3c9471d8583cfb3af7f87936c0db67b6c467005c
 hpp-manipulation-urdf_repository=${HPP_REPO}
 hpp-manipulation-urdf_extra_flags=${HPP_EXTRA_FLAGS}
 
@@ -68,20 +68,20 @@ hpp_tutorial_branch=${HPP_VERSION}
 hpp_tutorial_repository=${HPP_REPO}
 hpp_tutorial_extra_flags=${HPP_EXTRA_FLAGS} -DPYTHON_STANDARD_LAYOUT=ON
 
-hpp-gepetto-viewer_branch=${HPP_VERSION}
+hpp-gepetto-viewer_branch=f79e490ed21250578841eaeb107b6497e0acbaf4
 hpp-gepetto-viewer_repository=${HPP_REPO}
 hpp-gepetto-viewer_extra_flags= -DINSTALL_DOCUMENTATION=OFF -DUSE_HPP_PYTHON=ON \
 	-DPYTHON_STANDARD_LAYOUT=ON
 
-hpp-plot_branch=${HPP_VERSION}
+hpp-plot_branch=98c483bb0ef887c4eebfb3a6ac0f790e2a02e0c2
 hpp-plot_repository=${HPP_REPO}
-hpp-plot_extra_flags= -DINSTALL_DOCUMENTATION=OFF
+hpp-plot_extra_flags= -DINSTALL_DOCUMENTATION=OFF -DUSE_QT=ON
 
-hpp-exec_branch=${HPP_VERSION}
+hpp-exec_branch=0a81072cfce3956cd9a1d6a12824754078bd1d7f
 hpp-exec_repository=${HPP_REPO}
 hpp-exec_extra_flags=${PYTHON_FLAGS}
 
-hpp-rviz_branch=${HPP_VERSION}
+hpp-rviz_branch=3a4315e31772bb96a3f0e239dccae35f8f2a4059
 hpp-rviz_repository=${HPP_REPO}
 hpp-rviz_extra_flags=${HPP_EXTRA_FLAGS}
 
@@ -94,7 +94,7 @@ toppra_repository=${TOPPRA_REPO}
 toppra_branch=0.6.7
 toppra_extra_flags= -DBUILD_TESTS=OFF -DPYTHON_BINDINGS=OFF
 
-hpp-toppra_branch=${HPP_VERSION}
+hpp-toppra_branch=77f6a5166f18258ad0616657b464a3fd78826928
 hpp-toppra_repository=${HPP_REPO}
 hpp-toppra_extra_flags= -DPYTHON_STANDARD_LAYOUT=ON
 
@@ -167,7 +167,9 @@ test:
 	if [ -d $(@:.checkout=)/.git ]; then \
 		echo "$(@:.checkout=) already checkout out."; \
 	else \
-		git clone ${GIT_QUIET} -b ${$(@:.checkout=)_branch} ${$(@:.checkout=)_repository}/$(@:.checkout=); \
+		git clone ${GIT_QUIET} ${$(@:.checkout=)_repository}/$(@:.checkout=); \
+		cd ${SRC_DIR}/$(@:.checkout=); \
+		git reset --hard ${$(@:.checkout=)_branch}; \
 	fi \
 
 %.fetch:
@@ -300,6 +302,14 @@ toppra.install:toppra.configure
 
 toppra.install_nodep:toppra.configure_nodep
 	${MAKE} -C ${SRC_DIR}/$(@:.install_nodep=)/cpp/${BUILD_FOLDER} install
+
+hpp_tutorial.checkout:
+	if [ -d hpp_tutorial/.git ]; then \
+		echo "hpp_tutorial already checkout out."; \
+	else \
+		git clone ${GIT_QUIET} -b ${hpp_tutorial_branch} \
+			${hpp_tutorial_repository}/hpp_tutorial; \
+	fi \
 
 # }}}
 
