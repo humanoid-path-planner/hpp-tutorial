@@ -196,9 +196,9 @@ for i in range(10):
     # plan motion between q_init and qpg
     planner.setTransition(transition)
     try:
-        q_goal = np.zeros((1, robot.configSize()), order='F')
-        q_goal[0,:] = qpg
-        p1 = planner.planPath(q_init, q_goal, True)
+        q_goal = np.zeros((robot.configSize(), 1))
+        q_goal[:,0] = qpg
+        p1 = planner.computePath(q_init, q_goal, True)
     except Exception as exc:
         print(f"path planning failed between q_init and qpg: {exc}")
         continue
@@ -213,9 +213,9 @@ for i in range(10):
     # plan motion between qpg and qg
     planner.setTransition(transition)
     try:
-        q_goal = np.zeros((1, robot.configSize()), order='F')
-        q_goal[0,:] = qg
-        p2 = planner.planPath(qpg, q_goal, True)
+        q_goal = np.zeros((robot.configSize(), 1))
+        q_goal[:,0] = qg
+        p2 = planner.computePath(qpg, q_goal, True)
     except Exception as exc:
         print(f"path planning failed between qpg and qg: {exc}")
         continue
