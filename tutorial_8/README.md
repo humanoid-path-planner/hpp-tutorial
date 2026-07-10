@@ -6,7 +6,7 @@ Having completed [tutorial 7](../tutorial_7/README.md).
 
 ## Overview
 
-Tutorial 6 executed one arm trajectory with `send_trajectory`. This tutorial
+Tutorial 7 executed one arm trajectory with `send_trajectory`. This tutorial
 adds the gripper: the robot must open the fingers before approaching the box,
 close them before transport, then open them again at the goal.
 
@@ -46,7 +46,7 @@ docker exec -it hpp bash
 Run the tutorial script:
 
 ```
-cd ~/devel/src/hpp_tutorial/tutorial_7
+cd ~/devel/src/hpp_tutorial/tutorial_8
 python -i init.py
 ```
 
@@ -115,7 +115,7 @@ def release_box():
 
 `open_gripper` and `close_gripper` send a reference value for
 `fr3_finger_joint1` to open or close the gripper. They use `send_trajectory`,
-as in `tutorial_6`. On the real robot, this would be performed by a ROS action
+as in `tutorial_7`. On the real robot, this would be performed by a ROS action
 instead.
 
 `grasp_box` and `release_box` call `attach_box` and `detach_box` respectively.

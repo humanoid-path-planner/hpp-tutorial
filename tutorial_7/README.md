@@ -17,7 +17,7 @@ Launch the Gazebo simulation with
 a `joint_trajectory_controller`:
 
 ```
-ros2 launch hpp_tutorial tutorial_6_launch.py
+ros2 launch hpp_tutorial tutorial_7_launch.py
 ```
 
 Wait until you see `Configured and activated joint_trajectory_controller` in the
@@ -34,7 +34,7 @@ docker exec -it hpp bash
 Source the environments and run the tutorial script:
 
 ```
-cd ~/devel/src/hpp_tutorial/tutorial_6
+cd ~/devel/src/hpp_tutorial/tutorial_7
 python -i init.py
 ```
 
