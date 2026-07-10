@@ -81,7 +81,7 @@ hpp-exec_branch=${HPP_VERSION}
 hpp-exec_repository=${HPP_REPO}
 hpp-exec_extra_flags=${PYTHON_FLAGS}
 
-hpp-rviz_branch=${HPP_VERSION}
+hpp-rviz_branch=main
 hpp-rviz_repository=${HPP_REPO}
 hpp-rviz_extra_flags=${HPP_EXTRA_FLAGS}
 
