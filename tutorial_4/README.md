@@ -6,9 +6,11 @@ Having completed [tutorial 3](../tutorial_3/README.md)
 
 ## Initializing the problem
 
-In the docker container, cd into `tutorial_4` directory. In a bash terminal, run
+In a terminal, run:
 
-```
+```bash
+source "$HOME/mfja-gears/setup.bash"
+cd "$HPP_TUTORIAL_DIR/tutorial_4"
 python -i init.py
 ```
 The script contains the code of [tutorial_3](../tutorial/tutorial_3) up to the computation of

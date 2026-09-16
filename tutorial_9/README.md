@@ -19,14 +19,14 @@ For the full `hpp_exec` API, see the
 
 ## Setting up the simulation
 
-Use the same Docker image as tutorial 6 (`hpp-ros2:tuto`). If you have not
-built it yet, see the [tutorial 6 instructions](../tutorial_6/README.md).
+Use the same MFJA simulation environment as [tutorial 6](../tutorial_6/README.md).
 
 ## Terminal 1: Launching the simulation
 
 Launch the same FR3 and gripper simulation as tutorial 8:
 
-```
+```bash
+source "$HOME/mfja-gears/setup-simulation.bash"
 ros2 launch hpp_tutorial tutorial_8_launch.py
 ```
 
@@ -39,14 +39,14 @@ artefact with mimic joints. It does not affect the tutorial.
 
 Open a second terminal:
 
-```
-docker exec -it hpp bash
+```bash
+source "$HOME/mfja-gears/setup-simulation.bash"
 ```
 
 Run the tutorial script:
 
 ```
-cd ~/devel/src/hpp_tutorial/tutorial_9
+cd "$HPP_TUTORIAL_DIR/tutorial_9"
 python -i init.py
 ```
 

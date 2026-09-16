@@ -11,46 +11,18 @@ from `pyhpp_rviz`. Unlike the web-based viewer used in tutorials 2–5, this vis
 communicates over ROS 2 topics and displays the robot, paths, and landmarks directly inside
 RViz2.
 
-## Setting up the simulation
+## Prerequisite for RViz and simulation
 
-The base tutorial docker image does not include ROS 2 control packages. Build the
-extended image from the tutorial 6 directory **on the host machine** (not inside
-the container):
-
-```
-cd tutorial_6
-docker build --build-arg DOCKER_USER=`id -u` --build-arg DOCKER_GROUP=`id -g` \
-    -t hpp-ros2:tuto .
-```
-
-Then start the container from the root shared directory:
-
-```
-cd ../../..
-./src/hpp_tutorial/tutorial_6/run_docker.sh
-```
-
-## Compiling the HPP RViz2 plugins
-
-On your first `make all` from tutorial 1, the RViz2 plugin sources were notcompiled.
-Build `hpp-rviz`:
-
-```
-cd src
-make hpp-rviz.install
-```
-
-export the package path
-
-```bash
-export ROS_PACKAGE_PATH=/home/user/devel/src/:/opt/openrobots/share/:$ROS_PACKAGE_PATH
-```
+Use the MFJA installation with the RViz/Gazebo extension and its
+`setup-simulation.bash` environment.
 
 ## Initializing the viewer
 
-In the docker container, cd into `tutorial_6` directory and run:
+In a terminal, run:
 
-```
+```bash
+source "$HOME/mfja-gears/setup-simulation.bash"
+cd "$HPP_TUTORIAL_DIR/tutorial_6"
 python -i init.py
 ```
 
@@ -67,10 +39,10 @@ v.initViewer(robot=robot)
 
 ## Configuring RViz2
 
-Open a second terminal in the container:
+Open a second terminal:
 
-```
-docker exec -it hpp bash
+```bash
+source "$HOME/mfja-gears/setup-simulation.bash"
 rviz2
 ```
 
@@ -87,9 +59,9 @@ Add a **TF** display to visualize all frame transforms published by the viewer.
 
 Disable TF arrows and put Frame Time Out to 1e+07
 
-There is a rviz config file on hpp_tutorial/launch/tuto6.rviz
+There is a rviz config file in `$HPP_TUTORIAL_DIR/launch/config.rviz`.
 ```bash
-rviz2 -d hpp_tutorial/launch/config.rviz
+rviz2 -d "$HPP_TUTORIAL_DIR/launch/config.rviz"
 ```
 
 Call `v(q_init)` in the Python terminal to place all objects in their initial configuration.
