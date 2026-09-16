@@ -10,9 +10,11 @@ In many manufacturing applications, we often need to bring a tool mounted on a r
 
 ## Initializing the problem
 
-In the docker container, cd into `tutorial_3` directory. In a bash terminal, run
+In a terminal, run:
 
-```
+```bash
+source "$HOME/mfja-gears/setup.bash"
+cd "$HPP_TUTORIAL_DIR/tutorial_3"
 python -i init.py
 ```
 

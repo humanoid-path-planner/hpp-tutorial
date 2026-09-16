@@ -6,9 +6,11 @@ Having completed [tutorial 4](../tutorial_4/README.md)
 
 ## Initializing the problem
 
-In the docker container, cd into `tutorial_5` directory. In a bash terminal, run
+In a terminal, run:
 
-```
+```bash
+source "$HOME/mfja-gears/setup.bash"
+cd "$HPP_TUTORIAL_DIR/tutorial_5"
 python -i init.py
 ```
 
