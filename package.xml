@@ -9,7 +9,7 @@
 
   <depend>hpp_manipulation</depend>
   <depend>hpp_gepetto_viewer</depend>
-  <depend>example_robot_data</depend>
+  <depend>example_robot_descriptions</depend>
 
   <buildtool_depend>cmake</buildtool_depend>
   <build_depend>jrl_cmakemodules</build_depend>
