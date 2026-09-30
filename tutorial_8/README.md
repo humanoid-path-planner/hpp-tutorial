@@ -199,3 +199,5 @@ box, the arm carry the box to the goal, the fingers open, and the arm retreat.
 
 `reset_box_pose()` detaches the simulated box if needed and places it back at
 the planned start pose before execution.
+
+Continue to [tutorial 9](../tutorial_9/README.md).

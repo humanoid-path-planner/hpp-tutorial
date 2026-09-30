@@ -1,0 +1,10 @@
+# Mark calibrated after commissioning the scene and tool used by the plan.
+calibrated: false
+
+execution:
+  trajectory_action: /manipulator_controller/joint_trajectory_action
+  joint_state_topic: /joint_states
+  joint_tolerance_rad: 0.002
+  gripper_service: /io_interface/write_single_io
+  gripper_pin: 0
+  gripper_settle_s: 0.5
