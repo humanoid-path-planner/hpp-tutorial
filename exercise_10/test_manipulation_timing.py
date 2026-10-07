@@ -6,7 +6,7 @@ from pinocchio import SE3
 from pyhpp.core import InterpolatedPath, Problem, StraightPath, interval
 from pyhpp.core.path import Vector
 from pyhpp.pinocchio import Device, urdf
-from tools import Toppra
+from pyhpp_toppra import Toppra
 
 
 @pytest.fixture
@@ -29,6 +29,7 @@ def timing_problem():
     )
     problem = Problem(robot)
     toppra = Toppra(problem)
+    toppra.stopMethod = "junctions"
     toppra.velocityScale = 0.5
     toppra.accelerationLimits = np.array([0.5])
     toppra.N = 100

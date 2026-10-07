@@ -11,12 +11,13 @@ from pyhpp.manipulation import (
     GraphPathValidation,
     GraphRandomShortcut,
     ManipulationPlanner,
+    ManipulationSpline,
     Problem,
     urdf,
 )
 from pyhpp.manipulation.constraint_graph_factory import ConstraintGraphFactory
+from pyhpp_toppra import Toppra
 from pyhpp_viser import Viewer
-from tools import SplineToppra
 
 
 def display():
