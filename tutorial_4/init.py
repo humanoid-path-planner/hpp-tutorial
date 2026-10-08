@@ -116,7 +116,7 @@ for i in range(10):
         q_goal = np.zeros((robot.configSize(), 1))
         q_goal[:, 0] = qpg
         p1 = planner.computePath(q_init, q_goal, True)
-    except Exception as exc:
+    except Exception as exc:  # noqa BLE001
         print(f"path planning failed between q_init and qpg: {exc}")
         continue
     if res:
