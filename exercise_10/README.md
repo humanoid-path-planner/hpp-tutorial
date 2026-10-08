@@ -19,14 +19,15 @@ to plan and execute manipulation motions of increasing complexity.
      following methods:
 
 ```python
-    from staubli_io import set_gripper
+from staubli_io import set_gripper
 
-    def open_gripper():
-        return set_gripper(node, execution_config, "open")
 
-    def close_gripper():
-        return set_gripper(node, execution_config, "close")
+def open_gripper():
+    return set_gripper(node, execution_config, "open")
 
+
+def close_gripper():
+    return set_gripper(node, execution_config, "close")
 ```
 
 ## Run on the Stäubli
