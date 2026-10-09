@@ -108,7 +108,7 @@ Use v(config) to display a configuration on rviz2 like is done with viser.
 Add the **Trajectory** plugin (from the HPP RViz2 plugins) to RViz2. A control panel
 will appear at the bottom of the screen.
 
-![Control of the view](figures/trajectory_display_select.png)
+![Control of the view](figures/trajectory_display_slect.png)
 
 
 Load a path from the Python terminal:

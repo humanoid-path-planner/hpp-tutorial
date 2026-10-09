@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+- [tutorials] Fix two broken links
 - Add exercise 10
 - ROS: example-robot-{data -> descriptions} - #200
 - [Makfile] Fix version of hpp-exec

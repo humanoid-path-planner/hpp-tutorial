@@ -11,7 +11,7 @@ In the docker container, cd into `tutorial_4` directory. In a bash terminal, run
 ```
 python -i init.py
 ```
-The script contains the code of [tutorial_3](../tutorial/tutorial_3) up to the computation of
+The script contains the code of [tutorial_3](../tutorial_3/) up to the computation of
 a path to `qpg`. To plan a path between `qpg` and qg, we first generate a desired trajectory
 of the tooltip.
 
