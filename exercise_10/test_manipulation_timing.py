@@ -51,10 +51,13 @@ def test_stops_at_nested_boundaries_and_internal_interpolation_points(timing_pro
 
     timed = toppra.optimize(path)
 
-    assert timed.numberPaths() == 3
+    # The path without motion is kept, as a grasp keeps its transition.
+    assert timed.numberPaths() == 4
+    assert timed.pathAtRank(0).length() == 0.0
+    np.testing.assert_allclose(timed.pathAtRank(0)(0.0)[0], q0, atol=1e-12)
     assert path.numberPaths() == 3
     assert len(path.pathAtRank(2).pathAtRank(0).interpolationPoints()) == 3
-    for rank, (start, end) in enumerate([(-0.2, 0.0), (0.0, 0.3), (0.3, 0.0)]):
+    for rank, (start, end) in enumerate([(-0.2, 0.0), (0.0, 0.3), (0.3, 0.0)], 1):
         leaf = timed.pathAtRank(rank)
         np.testing.assert_allclose(leaf(0.0)[0], [start], atol=1e-12)
         np.testing.assert_allclose(leaf(leaf.length())[0], [end], atol=1e-12)

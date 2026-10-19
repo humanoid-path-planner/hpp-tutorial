@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+- [exercise_10] Expect TOPPRA to keep the path without motion
 - [tutorials] Fix two broken links
 - Add exercise 10
 - ROS: example-robot-{data -> descriptions} - #200
