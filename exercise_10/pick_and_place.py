@@ -11,8 +11,8 @@ from pyhpp.manipulation import (
     GraphPathValidation,
     GraphRandomShortcut,
     ManipulationPlanner,
-    ManipulationSpline,
     Problem,
+    SplineGradientBased_bezier3,
     urdf,
 )
 from pyhpp.manipulation.constraint_graph_factory import ConstraintGraphFactory
