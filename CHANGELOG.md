@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+- [tutorial_1] Install libboost-test-dev in Dockerfile.
 - [exercise_10] Import SplineGradientBased_bezier3 instead of the removed ManipulationSpline
 - [exercise_10] Expect TOPPRA to keep the path without motion
 - [tutorials] Fix two broken links
