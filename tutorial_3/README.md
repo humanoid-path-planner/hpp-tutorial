@@ -229,6 +229,8 @@ v.loadPath(p1)
 v.loadPath(p2)
 v.loadPath(p3)
 ```
+In tab "Path Player" of the view controller, select the path in the "Path" dropdown and click on "Play".
+
 The drilling path is a little bit naive since the tool trajectory is not a straight line but the result of an interpolation in joint space and the velocities of the robot and tool are not controlled.
 
 [Tutorial 4](../tutorial_4/README.md) shows how to better control a tool trajectory.
