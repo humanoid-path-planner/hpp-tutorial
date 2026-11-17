@@ -43,7 +43,7 @@ v = Viewer(robot)
 v.initViewer(open=False, loadModel=True)
 v(q)
 ```
-Then in midori address bar, type `http://localhost:8080`. You should see the panda robot.
+Then in midori address bar, type `http://localhost:8000`. You should see the panda robot.
 
 You can have a quick look at the script to see the instructions used to define the robot.
 
@@ -165,9 +165,9 @@ In the upper right corner of the viewer, there is the following window to contro
 
 ![Control of the view](figures/viewer-control.png)
 
-Move the mouse to the icon representing three vertical sliders in the upper right corner, "Configuration and diagnostics" should pop up. Click on the icon and you will see the scene tree. Clicking again brings you back to the initial widget. Select tab "Display" in the upper part of the view controller and select "Show Visuals", "Show Frames" and "Show Contact Surfaces". Many frames are displayed, as well as the contact surfaces defined in the SRDF files.
+Select tab "Display" in the upper part of the view controller and select "Show Contact Surfaces". The contact surfaces defined in the SRDF files are displayed.
 
-Go again to the scene tree. In the tree, expand "pinocchio" then "frames", then "panda". By clicking on the eye in front of each node, you remove the corresponding frame from the view. Remove them all except "panda/gripper" and "box/handle". You now see the gripper and handle frames that will define how the robot grasps the object as in the picture below.
+Select tab "Frames". The "Scene Tree" folder lists the frames of the robot. Frames are hidden by default. In the tree, expand "pinocchio", "frames", "op_frames", then "panda" and check "gripper". Expand "box" next to "panda" and check "handle". You now see the gripper and handle frames that will define how the robot grasps the object as in the picture below. "Hide All Frames" removes all frames from the view.
 
 ![Panda robot and box with gripper and handle](figures/panda-view.png)
 
@@ -228,16 +228,16 @@ In the python terminal, copy paste the following lines
 v.setProblem(problem)
 v.setGraph(graph)
 ```
-In the view controller, click on the button "Show Graph Viewer". The window below should appear.
+In the view controller, select tab "Graph" and click on the button "Show Graph Viewer". The page below should open in a new browser tab.
 ![Graph Viewer](figures/graph-viewer.png)
 
-This window displays the constraint graph.
+This page displays the constraint graph.
 
-If you click on show waypoints, you will see **waypoint states** as on the picture below. Those intermediate states ease manipulation planning by forcing the robot to approach the object from above and lift it above the ground before moving it. The distance of the gripper to the object in **pregrasp** state is the sum of the gripper and handle clearances defined in the SRDF files.
+If you click on "Show waypoints", you will see **waypoint states** as on the picture below. Those intermediate states ease manipulation planning by forcing the robot to approach the object from above and lift it above the ground before moving it. The distance of the gripper to the object in **pregrasp** state is the sum of the gripper and handle clearances defined in the SRDF files.
 
 ![Graph Viewer](figures/graph-viewer-wp.png)
 
-By clicking on a state, you can display the constraints of this state. By right clicking on a state, you can select "Generate random config" and figure out what the additional states are meant for. Note that this operation may fail if the numerical solver does not converge and that it does not care for collisions.
+By clicking on a state, you can display the constraints of this state in the "Element Details" panel. By right clicking on a state, you can select "Generate from random" and figure out what the additional states are meant for. Note that this operation may fail if the numerical solver does not converge and that it does not care for collisions.
 
 ### Back to the manipulation problem
 
@@ -273,7 +273,7 @@ You can display the resulting path in the graphical interface by first loading i
 ```
 v.loadPath(p)
 ```
-and then by clicking on "Play" in the view controller.
+and then by clicking on "Play" in tab "Path Player" of the view controller.
 
 ## optimizing paths
 
