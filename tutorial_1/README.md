@@ -4,13 +4,15 @@ The tutorials use the binary packages of HPP on Ubuntu 24.04. Tutorials 6 to 9 a
 
 ## Installing HPP
 
-  1. Install HPP by following the [binary installation on Ubuntu 24.04](https://humanoid-path-planner.github.io/hpp-doc/installation/stable-binary.html), with its environment variables.
+  1. Install HPP by following the [binary installation on Ubuntu 24.04](https://humanoid-path-planner.github.io/hpp-doc/installation/stable-binary.html), with its environment variables, then open a new terminal.
   2. Install the packages used by the tutorials:
 
 ```
-sudo apt-get install robotpkg-py312-hpp-tutorial robotpkg-py312-hpp-toppra \
-robotpkg-py312-qt5-hpp-plot python3-matplotlib python3-venv
+sudo apt-get install robotpkg-py312-hpp-tutorial robotpkg-py312-qt5-hpp-plot \
+python3-matplotlib python3-venv
 ```
+
+The TOPPRA section of [tutorial 5](../tutorial_5/README.md) also needs `robotpkg-py312-hpp-toppra`.
 
   3. Install the web viewer in a virtual environment that keeps the system packages:
 
@@ -23,7 +25,7 @@ pip install viser pycollada
   4. Get the tutorial scripts:
 
 ```
-git clone --branch v10.0.0 https://github.com/humanoid-path-planner/hpp-tutorial hpp_tutorial
+git clone --branch v10.0.0 https://github.com/humanoid-path-planner/hpp-tutorial ~/hpp_tutorial
 ```
 
 In each new terminal, activate the virtual environment:
@@ -36,7 +38,7 @@ You can now proceed to [tutorial 2](../tutorial_2/README.md).
 
 ## Installing ROS 2 for tutorials 6 to 9
 
-  1. Install ROS 2 Jazzy by following the [ROS 2 documentation](https://docs.ros.org/en/jazzy/Installation/Ubuntu-Install-Debs.html). Add `source /opt/ros/jazzy/setup.bash` to your `.bashrc`, before the environment variables of HPP.
+  1. Install ROS 2 Jazzy by following the [ROS 2 documentation](https://docs.ros.org/en/jazzy/Installation/Ubuntu-Install-Debs.html). Add `source /opt/ros/jazzy/setup.bash` to your `.bashrc`, before the environment variables of HPP, then open a new terminal.
   2. Install the ROS 2 packages used by the tutorials:
 
 ```

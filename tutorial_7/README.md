@@ -28,7 +28,7 @@ Open a second terminal, activate the virtual environment and source the workspac
 of tutorial 1, then run the tutorial script:
 
 ```
-cd hpp_tutorial/tutorial_7
+cd ~/hpp_tutorial/tutorial_7
 python -i init.py
 ```
 

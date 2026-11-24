@@ -6,7 +6,7 @@ Having completed [tutorial 3](../tutorial_3/README.md)
 
 ## Initializing the problem
 
-In a terminal where the virtual environment is activated, cd into `hpp_tutorial/tutorial_4` directory and run
+In a terminal where the virtual environment is activated, cd into `~/hpp_tutorial/tutorial_4` directory and run
 
 ```
 python -i init.py

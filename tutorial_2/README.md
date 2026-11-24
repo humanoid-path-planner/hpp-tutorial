@@ -14,9 +14,9 @@ Having installed HPP by following the steps described in [tutorial 1](../tutoria
 
 ## Building and displaying a robot
 
-In a terminal where the virtual environment of [tutorial 1](../tutorial_1/README.md) is activated, go into directory `hpp_tutorial/tutorial_2` and run the following python script
+In a terminal where the virtual environment of [tutorial 1](../tutorial_1/README.md) is activated, go into directory `~/hpp_tutorial/tutorial_2` and run the following python script
 ```
-cd hpp_tutorial/tutorial_2
+cd ~/hpp_tutorial/tutorial_2
 python -i init.py
 ```
 You are now in an interactive python terminal. To display the robot that has been loaded by the script, type

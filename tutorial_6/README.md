@@ -13,7 +13,7 @@ RViz2.
 
 ## Initializing the viewer
 
-In a terminal where the virtual environment and the workspace of tutorial 1 are set up, cd into `hpp_tutorial/tutorial_6` directory and run:
+In a terminal where the virtual environment and the workspace of tutorial 1 are set up, cd into `~/hpp_tutorial/tutorial_6` directory and run:
 
 ```
 python -i init.py

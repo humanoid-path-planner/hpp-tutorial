@@ -1,4 +1,4 @@
-"""Launch Franka fr3 in Gazebo with a joint_trajectory_controller for HPP tutorial 6.
+"""Launch Franka fr3 in Gazebo with a joint_trajectory_controller for HPP tutorial 7.
 
 Usage:
     ros2 launch hpp_tutorial tutorial_7_launch.py

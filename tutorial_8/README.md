@@ -40,7 +40,7 @@ artefact with mimic joints. It does not affect the tutorial.
 Open a second terminal and run the tutorial script:
 
 ```
-cd hpp_tutorial/tutorial_8
+cd ~/hpp_tutorial/tutorial_8
 python -i init.py
 ```
 
