@@ -2,7 +2,7 @@
 
 ## Prerequisite
 
-Having completed [tutorial 2](../tutorial_2/README.md).
+Having completed [tutorial 2](../tutorial_2/README.md) and installed ROS 2 as described in [tutorial 1](../tutorial_1/README.md).
 
 ## Overview
 
@@ -11,44 +11,9 @@ from `pyhpp_rviz`. Unlike the web-based viewer used in tutorials 2–5, this vis
 communicates over ROS 2 topics and displays the robot, paths, and landmarks directly inside
 RViz2.
 
-## Setting up the simulation
-
-The base tutorial docker image does not include ROS 2 control packages. Build the
-extended image from the tutorial 6 directory **on the host machine** (not inside
-the container):
-
-```
-cd tutorial_6
-docker build --build-arg DOCKER_USER=`id -u` --build-arg DOCKER_GROUP=`id -g` \
-    -t hpp-ros2:tuto .
-```
-
-Then start the container from the root shared directory:
-
-```
-cd ../../..
-./src/hpp_tutorial/tutorial_6/run_docker.sh
-```
-
-## Compiling the HPP RViz2 plugins
-
-On your first `make all` from tutorial 1, the RViz2 plugin sources were notcompiled.
-Build `hpp-rviz`:
-
-```
-cd src
-make hpp-rviz.install
-```
-
-export the package path
-
-```bash
-export ROS_PACKAGE_PATH=/home/user/devel/src/:/opt/openrobots/share/:$ROS_PACKAGE_PATH
-```
-
 ## Initializing the viewer
 
-In the docker container, cd into `tutorial_6` directory and run:
+In a terminal where the virtual environment and the workspace of tutorial 1 are set up, cd into `hpp_tutorial/tutorial_6` directory and run:
 
 ```
 python -i init.py
@@ -66,10 +31,9 @@ v.initViewer(robot=robot)
 
 ## Configuring RViz2
 
-Open a second terminal in the container:
+Open a second terminal, source the workspace of tutorial 1 and run:
 
 ```
-docker exec -it hpp bash
 rviz2
 ```
 
@@ -86,9 +50,9 @@ Add a **TF** display to visualize all frame transforms published by the viewer.
 
 Disable TF arrows and put Frame Time Out to 1e+07
 
-There is a rviz config file on hpp_tutorial/launch/tuto6.rviz
+An RViz2 configuration with these settings is installed with the tutorials:
 ```bash
-rviz2 -d hpp_tutorial/launch/config.rviz
+rviz2 -d "$(ros2 pkg prefix hpp_tutorial)/share/hpp_tutorial/launch/config.rviz"
 ```
 
 Call `v(q_init)` in the Python terminal to place all objects in their initial configuration.

@@ -19,8 +19,8 @@ For the full `hpp_exec` API, see the
 
 ## Setting up the simulation
 
-Use the same Docker image as tutorial 6 (`hpp-ros2:tuto`). If you have not
-built it yet, see the [tutorial 6 instructions](../tutorial_6/README.md).
+Use the ROS 2 installation of [tutorial 1](../tutorial_1/README.md). In each
+terminal, activate the virtual environment and source the workspace.
 
 ## Terminal 1: Launching the simulation
 
@@ -37,16 +37,10 @@ artefact with mimic joints. It does not affect the tutorial.
 
 ## Terminal 2: Planning
 
-Open a second terminal:
+Open a second terminal and run the tutorial script:
 
 ```
-docker exec -it hpp bash
-```
-
-Run the tutorial script:
-
-```
-cd ~/devel/src/hpp_tutorial/tutorial_9
+cd hpp_tutorial/tutorial_9
 python -i init.py
 ```
 

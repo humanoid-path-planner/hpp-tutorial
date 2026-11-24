@@ -12,29 +12,11 @@ Having installed HPP by following the steps described in [tutorial 1](../tutoria
 
   You can access the C++ online API documentation [here](https://gepetto.github.io/doc/hpp-doc/doxygen-html/index.html)
 
-## Starting the container and opening new terminals
-
-To open again the container, in the same directory as in [tutorial 1](../tutorial_1/README.md), simply run the command
-
-```
-./run_docker.sh
-```
-Then in another terminal, type
-```
-docker exec -it hpp bash
-```
-This will open another bash terminal in the container. You can do this as many times as you want to open new terminals in the container.
-
-In the new terminal, open `midori` web browser:
-```
-midori
-```
-
 ## Building and displaying a robot
 
-In the first terminal, go into directory `hpp_tutorial/tutorial_2` and run the following python script
+In a terminal where the virtual environment of [tutorial 1](../tutorial_1/README.md) is activated, go into directory `hpp_tutorial/tutorial_2` and run the following python script
 ```
-cd /home/user/devel/src/hpp_tutorial/tutorial_2
+cd hpp_tutorial/tutorial_2
 python -i init.py
 ```
 You are now in an interactive python terminal. To display the robot that has been loaded by the script, type
@@ -43,7 +25,7 @@ v = Viewer(robot)
 v.initViewer(open=False, loadModel=True)
 v(q)
 ```
-Then in midori address bar, type `http://localhost:8000`. You should see the panda robot.
+Then open `http://localhost:8000` in your web browser. You should see the panda robot.
 
 You can have a quick look at the script to see the instructions used to define the robot.
 

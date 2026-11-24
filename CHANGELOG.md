@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+- [tutorials] Install HPP with robotpkg and ROS 2 from apt, remove the docker images
 - [tutorials] Update viewer instructions and screenshots for the new viser interface
 - [tutorial_1] Install libboost-test-dev in Dockerfile.
 - [exercise_10] Import SplineGradientBased_bezier3 instead of the removed ManipulationSpline

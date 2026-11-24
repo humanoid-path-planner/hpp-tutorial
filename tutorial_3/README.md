@@ -10,7 +10,7 @@ In many manufacturing applications, we often need to bring a tool mounted on a r
 
 ## Initializing the problem
 
-In the docker container, cd into `tutorial_3` directory. In a bash terminal, run
+In a terminal where the virtual environment is activated, cd into `hpp_tutorial/tutorial_3` directory and run
 
 ```
 python -i init.py
