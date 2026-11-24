@@ -8,11 +8,9 @@ The tutorials use the binary packages of HPP on Ubuntu 24.04. Tutorials 6 to 9 a
   2. Install the packages used by the tutorials:
 
 ```
-sudo apt-get install robotpkg-py312-hpp-tutorial robotpkg-py312-qt5-hpp-plot \
-python3-matplotlib python3-venv
+sudo apt-get install robotpkg-py312-hpp-tutorial robotpkg-py312-hpp-toppra \
+robotpkg-py312-qt5-hpp-plot python3-matplotlib python3-venv
 ```
-
-The TOPPRA section of [tutorial 5](../tutorial_5/README.md) also needs `robotpkg-py312-hpp-toppra`.
 
   3. Install the web viewer in a virtual environment that keeps the system packages:
 
