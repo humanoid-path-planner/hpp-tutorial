@@ -1,7 +1,7 @@
 """Launch Franka FR3 with gripper in Gazebo for HPP tutorial 8 (pick and place).
 
-Usage (inside the docker container):
-    ros2 launch /home/user/devel/install/share/hpp_tutorial/tutorial_8/launch_sim.py
+Usage:
+    ros2 launch hpp_tutorial tutorial_8_launch.py
 """
 
 import os

@@ -6,7 +6,7 @@ Having completed [tutorial 3](../tutorial_3/README.md)
 
 ## Initializing the problem
 
-In the docker container, cd into `tutorial_4` directory. In a bash terminal, run
+In a terminal where the virtual environment is activated, cd into `~/hpp_tutorial/tutorial_4` directory and run
 
 ```
 python -i init.py
